@@ -8,10 +8,10 @@
 
 Pod::Spec.new do |s|
   s.name         = "FanRefresh"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "A swift Refresh control ."
   s.description  = <<-DESC
-            一个swift 的刷新控件，下拉刷新，上拉加载
+            一个swift 的刷新控件，下拉刷新，上拉加载,UITableView,UICollectionView,UIWebView
                    DESC
 
   s.homepage     = "https://github.com/fanxiangyang/FanRefresh"
