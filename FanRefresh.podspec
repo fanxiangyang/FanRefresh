@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "FanRefresh"
-  s.version      = "0.0.2"
+  s.version      = "0.0.1"
   s.summary      = "A swift Refresh control ."
   s.description  = <<-DESC
             一个swift 的刷新控件，下拉刷新，上拉加载,UITableView,UICollectionView,UIWebView
@@ -31,7 +31,7 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/fanxiangyang/FanRefresh.git", :tag => s.version.to_s }
 
-  # s.source_files  = "Classes/FanKit.h","Classes/FanKitHead.h"
+  s.source_files  = "Classes/**/*.swift"
   #s.exclude_files = "Classes/Exclude"
 
   # s.public_header_files = "Classes/FanKit.h","Classes/FanKitHead.h"
@@ -41,7 +41,7 @@ Pod::Spec.new do |s|
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
-  #s.frameworks = "UIKit", "QuartzCore"
+  s.frameworks = "UIKit", "Foundation"
 
   # s.library   = "iconv"
   # s.libraries = "iconv", "xml2"
@@ -51,20 +51,20 @@ Pod::Spec.new do |s|
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
   # s.dependency "JSONKit", "~> 1.4"
 
-  s.subspec 'Refresh' do |ss|
-    ss.source_files  = "Classes/Refresh/*.swift"
-    ss.frameworks = "UIKit", "Foundation"
-  end
+  # s.subspec 'Refresh' do |ss|
+  #   ss.source_files  = "Classes/Refresh/*.swift"
+  #   ss.frameworks = "UIKit", "Foundation"
+  # end
 
-  s.subspec 'Header' do |ss|
-    ss.source_files = 'Classes/Header/*.swift'
-    ss.frameworks = "UIKit","Foundation"
-  end
+  # s.subspec 'Header' do |ss|
+  #   ss.source_files = 'Classes/Header/*.swift'
+  #   ss.frameworks = "UIKit","Foundation"
+  # end
 
-  s.subspec 'Footer' do |ss|
-    ss.source_files = 'Classes/Footer/*.swift'
-    ss.frameworks = "UIKit","Foundation"
-  end
+  # s.subspec 'Footer' do |ss|
+  #   ss.source_files = 'Classes/Footer/*.swift'
+  #   ss.frameworks = "UIKit","Foundation"
+  # end
 
 end
 

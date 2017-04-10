@@ -27,7 +27,7 @@ Installation（安装）
 2. 将 FanRefresh项目里面Classes文件夹及内的源文件添加(拖放)到你的工程。
 3. 链接以下 frameworks:
     * UIKit
-    * CoreFoundation
+    * Foundation
 
 Requirements(系统要求)
 ==============
