@@ -9,16 +9,16 @@
 import UIKit
 
 /// 不放任何UI控件，只处理逻辑，一个footer的基类，所有具体实现UI类，都继承此类
-class FanRefreshFooter: FanRefreshComponent {
+public class FanRefreshFooter: FanRefreshComponent {
     
     //MARK: - 初始化方法
     
-    class func footerRefreshing(refreshingBlock:@escaping FanRefreshComponentRefreshingBlock)->(Self){
+    public class func footerRefreshing(refreshingBlock:@escaping FanRefreshComponentRefreshingBlock)->(Self){
         let refreshComponent=self.init()
         refreshComponent.fan_refreshingBlock=refreshingBlock
         return refreshComponent
     }
-    override func willMove(toSuperview newSuperview: UIView?) {
+    override public func willMove(toSuperview newSuperview: UIView?) {
         super.willMove(toSuperview: newSuperview)
         
         if (newSuperview != nil) {
@@ -48,14 +48,14 @@ class FanRefreshFooter: FanRefreshComponent {
     //FIXME:  属性调试中,还是不使用或者外部直接调用为空方法（不安全，以后可能废弃）
     //建议使用nomoreData状态代替自动隐藏，
     /// 是否自动隐藏该控件=否 (根据数据有无显示)---开启true必须把停止刷新放在tableview.reloadData后
-    var fan_automaticallyFooterHidden:Bool = false
+    public var fan_automaticallyFooterHidden:Bool = false
     
     /// 是否自动刷新(false是手动点击才刷新)
-    var fan_automaticallyRefresh:Bool = true
+    public var fan_automaticallyRefresh:Bool = true
 
-    var fan_automaticallyRefreshTriggerPercent:CGFloat=1.0
+    public var fan_automaticallyRefreshTriggerPercent:CGFloat=1.0
     
-    override var isHidden: Bool {
+    override public var isHidden: Bool {
         get{
             return super.isHidden
         }
@@ -74,13 +74,13 @@ class FanRefreshFooter: FanRefreshComponent {
     }
     //MARK: - 重写的方法
     
-    override func fan_prepare() -> () {
+    override public func fan_prepare() -> () {
         super.fan_prepare()
         self.fan_height=FanRefreshFooterHeight
     }
     
     /// 重新布局UI，子控件
-    override func fan_placeSubviews() -> () {
+    override public func fan_placeSubviews() -> () {
         super.fan_placeSubviews()
 //        print(self.frame)
 //        print(self.scrollViewOriginalInset)
@@ -95,7 +95,7 @@ class FanRefreshFooter: FanRefreshComponent {
 //        print(self.fan_y)
     }
     
-    override func fan_changeState(oldState:FanRefreshState) -> () {
+    override public func fan_changeState(oldState:FanRefreshState) -> () {
         if self.state==oldState {
             return
         }
@@ -113,7 +113,7 @@ class FanRefreshFooter: FanRefreshComponent {
             }
         }
     }
-    override func fan_scrollViewContentOffsetDidChange(change: [NSKeyValueChangeKey : Any]) {
+    override public func fan_scrollViewContentOffsetDidChange(change: [NSKeyValueChangeKey : Any]) {
         super.fan_scrollViewContentOffsetDidChange(change: change)
 //        print(change[.newKey])
         
@@ -138,14 +138,14 @@ class FanRefreshFooter: FanRefreshComponent {
             }
         }
     }
-    override func fan_scrollViewContentSizeDidChange(change:[NSKeyValueChangeKey : Any]) {
+    override public func fan_scrollViewContentSizeDidChange(change:[NSKeyValueChangeKey : Any]) {
         super.fan_scrollViewContentSizeDidChange(change: change)
 //        print(change[.newKey])
         self.fan_y = (self.superScrollView?.fan_contentHeight)!
         
     }
     
-    override func fan_scrollViewPanStateDidChange(change: [NSKeyValueChangeKey : Any]) {
+    override public func fan_scrollViewPanStateDidChange(change: [NSKeyValueChangeKey : Any]) {
         super.fan_scrollViewContentSizeDidChange(change: change)
         if self.state != .FanRefreshStateDefault {
             return
@@ -166,7 +166,7 @@ class FanRefreshFooter: FanRefreshComponent {
                 //超过一个屏幕
                 if (self.superScrollView?.fan_offsetY)! >= ( (self.superScrollView?.fan_contentHeight)! + (self.superScrollView?.fan_insetBottom)! - (self.superScrollView?.fan_height)! ) {
                     self.fan_beginRefreshing()
-                    print("3333333333333")
+//                    print("3333333333333")
 
                 }
             }
@@ -174,16 +174,16 @@ class FanRefreshFooter: FanRefreshComponent {
     }
   
     //MARK: - 外部调用的公共方法
-    func fan_endRefreshingWithNoMoreData() {
+    public func fan_endRefreshingWithNoMoreData() {
         self.state = .FanRefreshStateNoMoreData
     }
     
-    func fan_resetNoMoreData() {
+    public func fan_resetNoMoreData() {
         self.state = .FanRefreshStateDefault
     }
     
     /// 最好放在tableview.reloadData后
-    override func fan_endRefreshing() {
+    override public func fan_endRefreshing() {
         self.state = .FanRefreshStateDefault
         if self.fan_automaticallyFooterHidden {
             self.superScrollView?.fan_hiddenFooterWhenNull()

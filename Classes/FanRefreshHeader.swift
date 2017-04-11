@@ -10,30 +10,30 @@ import UIKit
 
 
 /// 不放任何UI控件，只处理逻辑，一个header的基类，所有具体实现UI类，都继承此类
-class FanRefreshHeader: FanRefreshComponent {
+public class FanRefreshHeader: FanRefreshComponent {
     //MARK: - 属性
 
     /// 控件的顶部默认隐藏时的位置
     fileprivate var insetTopDefault:CGFloat = 0.0
 
-    var fan_lastUpdatedTimeKey:String=FanRefreshHeaderLastUpdatedTimeKey{
+    public var fan_lastUpdatedTimeKey:String=FanRefreshHeaderLastUpdatedTimeKey{
         didSet{
             self.fan_setLastUpdatedTimeKey(timeKey:self.fan_lastUpdatedTimeKey)
         }
     }
-    var fan_lastUpdatedTime:Date{
+    public var fan_lastUpdatedTime:Date{
         get{
             return UserDefaults.standard.object(forKey: self.fan_lastUpdatedTimeKey) as! Date
         }
     }
     /// 外部修改日期显示内容
-    var fan_lasUpdateTimeText:((_ lastUpdatTime:Date) -> String?)?
+    public var fan_lasUpdateTimeText:((_ lastUpdatTime:Date) -> String?)?
     
     //MARK: - 外部调用方法
     /// 如果大于上次刷新多少秒，将自动进入刷新
     ///
     /// - Parameter afterTime: 几秒后 Double
-    func fan_autoRefresh(thanIntervalTime:TimeInterval) {
+    public func fan_autoRefresh(thanIntervalTime:TimeInterval) {
         if fabs(fan_lastUpdatedTime.timeIntervalSinceNow) > thanIntervalTime {
             self.fan_beginRefreshing()
         }
@@ -41,14 +41,14 @@ class FanRefreshHeader: FanRefreshComponent {
    
     //MARK: - 初始化方法
     
-    class func headerRefreshing(refreshingBlock:@escaping FanRefreshComponentRefreshingBlock)->(Self){
+    public class func headerRefreshing(refreshingBlock:@escaping FanRefreshComponentRefreshingBlock)->(Self){
         let refreshComponent=self.init()
         refreshComponent.fan_refreshingBlock=refreshingBlock
         return refreshComponent
     }
     //MARK: - 重写的方法
 
-    override func fan_prepare() -> () {
+    override public func fan_prepare() -> () {
         super.fan_prepare()
 
         self.fan_height=FanRefreshHeaderHeight
@@ -57,16 +57,16 @@ class FanRefreshHeader: FanRefreshComponent {
     }
     
     /// 重新布局UI，子控件
-    override func fan_placeSubviews() -> () {
+    override public func fan_placeSubviews() -> () {
         super.fan_placeSubviews()
         self.fan_y = -(self.fan_height)
 //        print(#function)
     }
-    func fan_setLastUpdatedTimeKey(timeKey:String) {
+    public func fan_setLastUpdatedTimeKey(timeKey:String) {
         
     }
     
-    override func fan_changeState(oldState:FanRefreshState) -> () {
+    override public func fan_changeState(oldState:FanRefreshState) -> () {
         //做各个状态的事情
         if self.state==oldState {
             return
@@ -113,7 +113,7 @@ class FanRefreshHeader: FanRefreshComponent {
     
     }
     
-    override func fan_scrollViewContentOffsetDidChange(change: [NSKeyValueChangeKey : Any]) {
+    override public func fan_scrollViewContentOffsetDidChange(change: [NSKeyValueChangeKey : Any]) {
         super.fan_scrollViewContentOffsetDidChange(change: change)
 //        print(change[.newKey])
 //        print("\(self.scrollViewOriginalInset)"+"========")
@@ -170,7 +170,7 @@ class FanRefreshHeader: FanRefreshComponent {
         }
     }
     //MARK: -  覆盖基类方法
-    override func fan_endRefreshing() {
+    override public func fan_endRefreshing() {
         DispatchQueue.main.async {
             self.state = .FanRefreshStateDefault
         }

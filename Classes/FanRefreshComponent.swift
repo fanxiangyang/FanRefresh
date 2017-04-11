@@ -15,7 +15,7 @@ import UIKit
 /// - FanRefreshStateRefreshing: 正在刷新状态
 /// - FanRefreshStateWillRefresh: 即将刷新状态
 /// - FanRefreshStateNoMoreData: 数据加载完成，没有更多数据
-enum FanRefreshState:Int {
+public enum FanRefreshState:Int {
     case FanRefreshStateDefault=0
     case FanRefreshStatePulling=1
     case FanRefreshStateRefreshing=2
@@ -34,22 +34,22 @@ public typealias FanRefreshComponentBeginRefreshingBlock = (()->())
 public typealias FanRefreshComponentEndRefreshingBlock = (()->())
 
 
-class FanRefreshComponent: UIView {
+public class FanRefreshComponent: UIView {
     
     /// 记录scrolView刚开始的Inset
-    var scrollViewOriginalInset:UIEdgeInsets?
+    public var scrollViewOriginalInset:UIEdgeInsets?
     
     /// 父类scrollView
-    weak var superScrollView:UIScrollView?
+    public weak var superScrollView:UIScrollView?
     
     /// 正在刷新的回调
-    var fan_refreshingBlock:FanRefreshComponentRefreshingBlock?
+    public var fan_refreshingBlock:FanRefreshComponentRefreshingBlock?
     /// 开始刷新
-    var fan_beginRefreshBlock:FanRefreshComponentBeginRefreshingBlock?
+    public var fan_beginRefreshBlock:FanRefreshComponentBeginRefreshingBlock?
     /// 结束刷新
-    var fan_endRefreshBlock:FanRefreshComponentEndRefreshingBlock?
+    public var fan_endRefreshBlock:FanRefreshComponentEndRefreshingBlock?
 
-    var state:FanRefreshState = .FanRefreshStateDefault{
+    public var state:FanRefreshState = .FanRefreshStateDefault{
         willSet{
 //            print("\(self.state)----\(newValue)\n")
 //            self.fan_changeState(newState: newValue)
@@ -59,9 +59,9 @@ class FanRefreshComponent: UIView {
             self.fan_changeState(oldState: oldValue)
         }
     }
-    var scrollViewPan:UIPanGestureRecognizer?
+    public var scrollViewPan:UIPanGestureRecognizer?
     /// 拖拽百分比改透明度(内部属性，)
-    var fan_pullingPercent:CGFloat=0.0{
+    public var fan_pullingPercent:CGFloat=0.0{
         didSet{
             if self.isRefreshing() {
                 return
@@ -73,7 +73,7 @@ class FanRefreshComponent: UIView {
     }
     
     /// 下拉时使用属性，上拉没有用
-    var fan_automaticallyChangeAlpha:Bool=true{
+    public var fan_automaticallyChangeAlpha:Bool=true{
         didSet{
             if self.isRefreshing() {
                 return
@@ -90,24 +90,24 @@ class FanRefreshComponent: UIView {
     //MARK: - 初始化
 
     
-    override init(frame: CGRect) {
+   public override init(frame: CGRect) {
         super.init(frame: frame)
         self.state = .FanRefreshStateDefault
         self.fan_prepare()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         fatalError("init(coder:) has not been implemented")
     }
     deinit {
         self.fan_removeObservers()
-        print(#function)
+//        print(#function)
     }
     
     //MARK: - 内部方法
     
-    override func draw(_ rect: CGRect) {
+    public override  func draw(_ rect: CGRect) {
         super.draw(rect)
         // 预防view还没显示出来就调用了fan_beginRefreshing
         if self.state == .FanRefreshStateWillRefresh {
@@ -115,13 +115,13 @@ class FanRefreshComponent: UIView {
         }
     }
     
-    override func layoutSubviews() {
+    public override func layoutSubviews() {
         self.fan_placeSubviews()
         super.layoutSubviews()
     }
     
     
-    final func fan_addObservers() {
+    public func fan_addObservers() {
         let options:NSKeyValueObservingOptions = [ .new,.old ]
         self.superScrollView?.addObserver(self, forKeyPath: FanRefreshKeyPathContentOffset, options: options, context: nil)
         self.superScrollView?.addObserver(self, forKeyPath: FanRefreshKeyPathContentSize, options: options, context: nil)
@@ -129,13 +129,13 @@ class FanRefreshComponent: UIView {
         self.scrollViewPan?.addObserver(self, forKeyPath: FanRefreshKeyPathPanState, options: options, context: nil)
 
     }
-    final func fan_removeObservers() {
+    public func fan_removeObservers() {
         self.superview?.removeObserver(self, forKeyPath: FanRefreshKeyPathContentOffset)
         self.superview?.removeObserver(self, forKeyPath: FanRefreshKeyPathContentSize)
         self.scrollViewPan?.removeObserver(self, forKeyPath: FanRefreshKeyPathPanState)
         self.scrollViewPan = nil
     }
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         //不可用状态不处理
         if self.isUserInteractionEnabled == false {
             return
@@ -154,7 +154,7 @@ class FanRefreshComponent: UIView {
     }
     
     /// 刷新回调block
-    func fan_executeRefreshingCallBack()  {
+    public func fan_executeRefreshingCallBack()  {
         DispatchQueue.main.async {
             if (self.fan_refreshingBlock != nil) {
                 self.fan_refreshingBlock!()
@@ -166,7 +166,7 @@ class FanRefreshComponent: UIView {
     }
     
     //MARK: - 子类有些需要实现的
-    override func willMove(toSuperview newSuperview: UIView?) {
+    override public func willMove(toSuperview newSuperview: UIView?) {
         super.willMove(toSuperview: newSuperview)
         if (newSuperview != nil) && !(newSuperview is UIScrollView) {
             return
@@ -188,7 +188,7 @@ class FanRefreshComponent: UIView {
    
     //MARK: - 子类重写方法
     /// 准备工作，子类重写
-    func fan_prepare() -> () {
+    public func fan_prepare() -> () {
 //        let autoresize = UIViewAutoresizing().union(.flexibleLeftMargin).union(.flexibleRightMargin).union(.flexibleWidth)
         //适配约束
         let autoresize = UIViewAutoresizing().union(.flexibleWidth)
@@ -199,16 +199,16 @@ class FanRefreshComponent: UIView {
     }
     
     /// 重新布局UI，子控件
-    func fan_placeSubviews() -> () {
+    public func fan_placeSubviews() -> () {
         
     }
-    func fan_scrollViewContentOffsetDidChange(change:[NSKeyValueChangeKey : Any]) {
+    public func fan_scrollViewContentOffsetDidChange(change:[NSKeyValueChangeKey : Any]) {
     }
-    func fan_scrollViewContentSizeDidChange(change:[NSKeyValueChangeKey : Any]) {
+    public func fan_scrollViewContentSizeDidChange(change:[NSKeyValueChangeKey : Any]) {
     }
-    func fan_scrollViewPanStateDidChange(change:[NSKeyValueChangeKey : Any]) {
+    public func fan_scrollViewPanStateDidChange(change:[NSKeyValueChangeKey : Any]) {
     }
-    func fan_changeState(oldState:FanRefreshState) -> () {
+    public func fan_changeState(oldState:FanRefreshState) -> () {
         // 加入主队列的目的是等setState:方法调用完毕、设置完文字后再去布局子控件
         DispatchQueue.main.async {
             self.setNeedsLayout()
@@ -222,7 +222,7 @@ class FanRefreshComponent: UIView {
     //MARK: - 刷新状态控制
     
     /// 开始刷新
-    func fan_beginRefreshing() {
+    public func fan_beginRefreshing() {
         UIView.animate(withDuration: FanRefreshAnimationDuration) {
             self.alpha = 1.0
         }
@@ -239,15 +239,15 @@ class FanRefreshComponent: UIView {
             }
         }
     }
-    func fan_beginRefreshing(beginRefreshBlock:@escaping FanRefreshComponentBeginRefreshingBlock) {
+    public func fan_beginRefreshing(beginRefreshBlock:@escaping FanRefreshComponentBeginRefreshingBlock) {
         self.fan_beginRefreshBlock=beginRefreshBlock
         self.fan_beginRefreshing()
     }
     /// 结束刷新
-    func fan_endRefreshing() {
+    public func fan_endRefreshing() {
         self.state = .FanRefreshStateDefault
     }
-    func fan_endRefreshing(endRefreshBlock:@escaping FanRefreshComponentEndRefreshingBlock) {
+    public func fan_endRefreshing(endRefreshBlock:@escaping FanRefreshComponentEndRefreshingBlock) {
         self.fan_endRefreshBlock=endRefreshBlock
         self.fan_endRefreshing()
     }
@@ -255,7 +255,7 @@ class FanRefreshComponent: UIView {
     /// 是否正在刷新
     ///
     /// - Returns: false/ture
-    func isRefreshing() -> (Bool){
+    public func isRefreshing() -> (Bool){
         return self.state == .FanRefreshStateRefreshing || self.state == .FanRefreshStateWillRefresh
     }
     
@@ -278,8 +278,8 @@ class FanRefreshComponent: UIView {
 
 //MARK: - Label扩展
 
-extension UILabel{
-    class func fan_label()-> UILabel {
+public extension UILabel{
+    public class func fan_label()-> UILabel {
         let label = UILabel()
         label.font=FanRefreshLableFont()
         label.textColor=FanRefreshTextColor()
@@ -289,7 +289,7 @@ extension UILabel{
         return label
     }
     
-    func fan_textWidth(height:CGFloat) -> CGFloat {
+    public func fan_textWidth(height:CGFloat) -> CGFloat {
         var stringWidth:CGFloat=0.0
         let size:CGSize = CGSize(width: CGFloat(MAXFLOAT), height: height)
         //FIXME:  字符串不存在时的崩溃
@@ -300,7 +300,7 @@ extension UILabel{
         }
         return stringWidth
     }
-    func fan_textHeight(width:CGFloat) -> CGFloat {
+    public func fan_textHeight(width:CGFloat) -> CGFloat {
         var stringHeight:CGFloat=0.0
         let size:CGSize = CGSize(width: width , height: CGFloat(MAXFLOAT))
         if (self.text != nil)  {

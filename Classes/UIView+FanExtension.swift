@@ -9,9 +9,9 @@
 import Foundation
 import UIKit
 
-extension UIView {
+public extension UIView {
     
-    var fan_x:CGFloat{
+    public var fan_x:CGFloat{
         get{
             return self.frame.origin.x
         }
@@ -21,7 +21,7 @@ extension UIView {
             self.frame=frame
         }
     }
-    var fan_y:CGFloat{
+    public var fan_y:CGFloat{
         get{
             return self.frame.origin.y
         }
@@ -32,7 +32,7 @@ extension UIView {
         }
     }
     
-    var fan_width:CGFloat{
+    public var fan_width:CGFloat{
         get{
             return self.frame.size.width
         }
@@ -42,7 +42,7 @@ extension UIView {
             self.frame=frame
         }
     }
-    var fan_height:CGFloat{
+    public var fan_height:CGFloat{
         get{
             return self.frame.size.height
         }
@@ -53,7 +53,7 @@ extension UIView {
         }
     }
   
-    var fan_size:CGSize{
+    public var fan_size:CGSize{
         get{
             return self.frame.size
         }
@@ -63,7 +63,7 @@ extension UIView {
             self.frame=frame
         }
     }
-    var fan_origin:CGPoint{
+    public var fan_origin:CGPoint{
         get{
             return self.frame.origin
         }

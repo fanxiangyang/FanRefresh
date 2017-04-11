@@ -33,46 +33,46 @@ import UIKit
 
 
 //MARK: - 常量宏定义
-let FanRefreshHeaderHeight:CGFloat=60.0
-let FanRefreshFooterHeight:CGFloat=44.0
-let FanRefreshAnimationDuration:Double=0.27
-let FanRefreshSlowAnimationDuration:Double=0.4
-let FanRefreshLabelInsetLeft:CGFloat=20.0
+public let FanRefreshHeaderHeight:CGFloat=60.0
+public let FanRefreshFooterHeight:CGFloat=44.0
+public let FanRefreshAnimationDuration:Double=0.27
+public let FanRefreshSlowAnimationDuration:Double=0.4
+public let FanRefreshLabelInsetLeft:CGFloat=20.0
 
-let FanRefreshKeyPathContentOffset = "contentOffset"
-let FanRefreshKeyPathContentInset = "contentInset"
-let FanRefreshKeyPathContentSize = "contentSize"
-let FanRefreshKeyPathPanState = "state"
+public let FanRefreshKeyPathContentOffset = "contentOffset"
+public let FanRefreshKeyPathContentInset = "contentInset"
+public let FanRefreshKeyPathContentSize = "contentSize"
+public let FanRefreshKeyPathPanState = "state"
 
 /// 刷新时间Key
-let FanRefreshHeaderLastUpdatedTimeKey = "FanRefreshHeaderLastUpdatedTimeKey"
+public let FanRefreshHeaderLastUpdatedTimeKey = "FanRefreshHeaderLastUpdatedTimeKey"
 
 // 刷新状态控制Key
-let FanRefreshHeaderDefaultText = "FanRefreshHeaderDefaultText"
-let FanRefreshHeaderPullingText = "FanRefreshHeaderPullingText"
-let FanRefreshHeaderRefreshingText = "FanRefreshHeaderRefreshingText"
+public let FanRefreshHeaderDefaultText = "FanRefreshHeaderDefaultText"
+public let FanRefreshHeaderPullingText = "FanRefreshHeaderPullingText"
+public let FanRefreshHeaderRefreshingText = "FanRefreshHeaderRefreshingText"
 
-let FanRefreshAutoFooterDefaultText = "FanRefreshAutoFooterDefaultText"
-let FanRefreshAutoFooterRefreshingText = "FanRefreshAutoFooterRefreshingText"
-let FanRefreshAutoFooterNoMoreDataText = "FanRefreshAutoFooterNoMoreDataText"
+public let FanRefreshAutoFooterDefaultText = "FanRefreshAutoFooterDefaultText"
+public let FanRefreshAutoFooterRefreshingText = "FanRefreshAutoFooterRefreshingText"
+public let FanRefreshAutoFooterNoMoreDataText = "FanRefreshAutoFooterNoMoreDataText"
 
-let FanRefreshBackFooterDefaultText = "FanRefreshBackFooterDefaultText"
-let FanRefreshBackFooterPullingText = "FanRefreshBackFooterPullingText"
-let FanRefreshBackFooterRefreshingText = "FanRefreshBackFooterRefreshingText"
-let FanRefreshBackFooterNoMoreDataText = "FanRefreshBackFooterNoMoreDataText"
+public let FanRefreshBackFooterDefaultText = "FanRefreshBackFooterDefaultText"
+public let FanRefreshBackFooterPullingText = "FanRefreshBackFooterPullingText"
+public let FanRefreshBackFooterRefreshingText = "FanRefreshBackFooterRefreshingText"
+public let FanRefreshBackFooterNoMoreDataText = "FanRefreshBackFooterNoMoreDataText"
 
-let FanRefreshHeaderLastTimeText = "FanRefreshHeaderLastTimeText"
-let FanRefreshHeaderDateTodayText = "FanRefreshHeaderDateTodayText"
-let FanRefreshHeaderNoneLastDateText = "FanRefreshHeaderNoneLastDateText"
+public let FanRefreshHeaderLastTimeText = "FanRefreshHeaderLastTimeText"
+public let FanRefreshHeaderDateTodayText = "FanRefreshHeaderDateTodayText"
+public let FanRefreshHeaderNoneLastDateText = "FanRefreshHeaderNoneLastDateText"
 
 //MARK: - 方法宏定义
-func FanRefreshColor(r:CGFloat,g:CGFloat,b:CGFloat,a:CGFloat)->UIColor{
+public func FanRefreshColor(r:CGFloat,g:CGFloat,b:CGFloat,a:CGFloat)->UIColor{
     return UIColor(red: (r)/255.0, green: (g)/255.0, blue: (b)/255.0, alpha: (a))
 }
-func FanRefreshLableFont()->UIFont{
+public func FanRefreshLableFont()->UIFont{
     return UIFont.boldSystemFont(ofSize: 14)
 }
-func FanRefreshTextColor()->UIColor{
+public func FanRefreshTextColor()->UIColor{
     return FanRefreshColor(r: 90.0, g: 90.0, b: 90.0, a: 1.0)
 }
 

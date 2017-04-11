@@ -8,30 +8,30 @@
 
 import UIKit
 
-class FanRefreshHeaderDefault: FanRefreshHeader {
+public class FanRefreshHeaderDefault: FanRefreshHeader {
 
     //MARK: - 外部可以修改成员变量
 
     /// 存放状态标题字典
-    var fan_stateTitles:Dictionary<FanRefreshState, String> = Dictionary<FanRefreshState, String>()
+    public var fan_stateTitles:Dictionary<FanRefreshState, String> = Dictionary<FanRefreshState, String>()
     //文字距离圆圈和箭头的距离
     var fan_labelInsetLeft:CGFloat = FanRefreshLabelInsetLeft
     
     //MARK: - 内部成员变量+只读的
 
     /// iOS8.0+当前日历
-    var fan_currentCalendar:NSCalendar{
+    public var fan_currentCalendar:NSCalendar{
         return NSCalendar(calendarIdentifier: .gregorian)!
     }
     
     /// 时间Label
-    lazy var fan_lastUpdatedTimeLabel:UILabel = {
+    public lazy var fan_lastUpdatedTimeLabel:UILabel = {
         let timeLabel = UILabel.fan_label()
         self.addSubview(timeLabel)
         return timeLabel
     }()
     /// 状态Label
-    lazy var fan_stateLabel:UILabel = {
+    public lazy var fan_stateLabel:UILabel = {
         let titleLabel = UILabel.fan_label()
         self.addSubview(titleLabel)
         return titleLabel
@@ -41,21 +41,21 @@ class FanRefreshHeaderDefault: FanRefreshHeader {
     //MARK: - 箭头和菊花或自定义UI
     
     ///懒加载属性，类似OC的get方法懒加载
-    lazy var fan_arrowView:UIImageView = {
+    public lazy var fan_arrowView:UIImageView = {
         let arrowView = UIImageView(image: Bundle.fan_arrowImage)
         self.addSubview(arrowView)
         return arrowView
     }()
     
     /// 菊花样式
-    var fan_activityIndicatorViewStyle:UIActivityIndicatorViewStyle = .gray
+    public var fan_activityIndicatorViewStyle:UIActivityIndicatorViewStyle = .gray
 //    {
 //        //这里应该不需要重新刷新
 //        didSet{
 //            self.setNeedsLayout()
 //        }
 //    }
-    lazy var fan_loadingView:UIActivityIndicatorView? = {
+    public lazy var fan_loadingView:UIActivityIndicatorView? = {
         let loadingView = UIActivityIndicatorView(activityIndicatorStyle: self.fan_activityIndicatorViewStyle)
         self.addSubview(loadingView)
         return loadingView
@@ -64,7 +64,7 @@ class FanRefreshHeaderDefault: FanRefreshHeader {
     //MARK: - 本类方法
 
     /// 设置title状态
-    func fan_setTitle(title:String?,state:FanRefreshState) {
+    public func fan_setTitle(title:String?,state:FanRefreshState) {
         if title == nil {
             return
         }
@@ -77,7 +77,7 @@ class FanRefreshHeaderDefault: FanRefreshHeader {
     /// 重写设置时间key，用来更新Label
     ///
     /// - Parameter timeKey: timeKey
-    override func fan_setLastUpdatedTimeKey(timeKey:String) {
+    public override func fan_setLastUpdatedTimeKey(timeKey:String) {
         super.fan_setLastUpdatedTimeKey(timeKey: timeKey)
         
         if (self.fan_lastUpdatedTimeLabel.isHidden) {
@@ -119,7 +119,7 @@ class FanRefreshHeaderDefault: FanRefreshHeader {
         
     }
     
-    override func fan_prepare() {
+    public override func fan_prepare() {
         super.fan_prepare()
         
         //初始化UI,放在最前面(已经用懒加载)
@@ -141,7 +141,7 @@ class FanRefreshHeaderDefault: FanRefreshHeader {
         
     }
     
-    override func fan_placeSubviews() {
+    override public func fan_placeSubviews() {
         super.fan_placeSubviews()
         if (self.fan_stateLabel.isHidden) {
             return
@@ -196,7 +196,7 @@ class FanRefreshHeaderDefault: FanRefreshHeader {
         //箭头颜色和状态Label颜色相同
         self.fan_arrowView.tintColor = self.fan_stateLabel.textColor
     }
-    override func fan_changeState(oldState: FanRefreshState) {
+    override public func fan_changeState(oldState: FanRefreshState) {
         //每次继承都要判断，防止多次调用执行代码
         if self.state == oldState {
             return

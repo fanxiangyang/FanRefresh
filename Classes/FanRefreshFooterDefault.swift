@@ -8,19 +8,19 @@
 
 import UIKit
 
-class FanRefreshFooterDefault: FanRefreshFooter {
+public class FanRefreshFooterDefault: FanRefreshFooter {
 
     /// 存放状态标题字典
-    var fan_stateTitles:Dictionary<FanRefreshState, String> = Dictionary<FanRefreshState, String>()
+    public var fan_stateTitles:Dictionary<FanRefreshState, String> = Dictionary<FanRefreshState, String>()
     //文字距离圆圈和箭头的距离
-    var fan_labelInsetLeft:CGFloat = FanRefreshLabelInsetLeft
+    public var fan_labelInsetLeft:CGFloat = FanRefreshLabelInsetLeft
     
-    var fan_isRefreshTitleHidden:Bool = false
+    public var fan_isRefreshTitleHidden:Bool = false
 
     //MARK: - 内部成员变量+只读的
     
     /// 状态Label
-    lazy var fan_stateLabel:UILabel = {
+    public lazy var fan_stateLabel:UILabel = {
         let titleLabel = UILabel.fan_label()
         self.addSubview(titleLabel)
         return titleLabel
@@ -31,7 +31,7 @@ class FanRefreshFooterDefault: FanRefreshFooter {
     
  
     /// 菊花样式
-    var fan_activityIndicatorViewStyle:UIActivityIndicatorViewStyle = .gray
+    public var fan_activityIndicatorViewStyle:UIActivityIndicatorViewStyle = .gray
     //    {
     //        //这里应该不需要重新刷新
     //        didSet{
@@ -40,7 +40,7 @@ class FanRefreshFooterDefault: FanRefreshFooter {
     //    }
     
     ///懒加载属性，类似OC的get方法懒加载
-    lazy var fan_loadingView:UIActivityIndicatorView? = {
+    public lazy var fan_loadingView:UIActivityIndicatorView? = {
         let loadingView = UIActivityIndicatorView(activityIndicatorStyle: self.fan_activityIndicatorViewStyle)
         self.addSubview(loadingView)
         return loadingView
@@ -49,7 +49,7 @@ class FanRefreshFooterDefault: FanRefreshFooter {
     //MARK: - 本类方法
     
     /// 设置title状态
-    func fan_setTitle(title:String?,state:FanRefreshState) {
+    public func fan_setTitle(title:String?,state:FanRefreshState) {
         if title == nil {
             return
         }
@@ -57,7 +57,7 @@ class FanRefreshFooterDefault: FanRefreshFooter {
         self.fan_stateLabel.text=self.fan_stateTitles[self.state]
     }
     
-    func fan_stateLabelClick() {
+   public  func fan_stateLabelClick() {
         if self.state == .FanRefreshStateDefault {
             self.fan_beginRefreshing()
         }
@@ -65,7 +65,7 @@ class FanRefreshFooterDefault: FanRefreshFooter {
     
     //MARK: - 重写父类方法
     
-    override func fan_prepare() {
+    public override func fan_prepare() {
         super.fan_prepare()
         
         //初始化UI,放在最前面(已经用懒加载)
@@ -86,7 +86,7 @@ class FanRefreshFooterDefault: FanRefreshFooter {
         
     }
     
-    override func fan_placeSubviews() {
+    override public func fan_placeSubviews() {
         super.fan_placeSubviews()
         if (self.fan_stateLabel.isHidden) {
             return
@@ -108,7 +108,7 @@ class FanRefreshFooterDefault: FanRefreshFooter {
             self.fan_loadingView?.center = CGPoint(x: loadingCenterX, y: loadingCenterY)
         }
     }
-    override func fan_changeState(oldState: FanRefreshState) {
+    override public func fan_changeState(oldState: FanRefreshState) {
         //每次继承都要判断，防止多执行代码
         if self.state == oldState {
             return
