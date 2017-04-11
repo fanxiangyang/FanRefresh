@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "FanRefresh"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "A swift Refresh control ."
   s.description  = <<-DESC
             一个swift 的刷新控件，下拉刷新，上拉加载,UITableView,UICollectionView,UIWebView
@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
 
   s.license      = { :type => "MIT", :file => "LICENSE" }
 
-  s.author             = { "fanxiangyang" => "1346569137@qq.com" }
+  s.author             = { "fanxiangyang" => "fqsyfan@gmail.com" }
   # s.social_media_url   = "http://twitter.com/fanxiangyang"
 
   s.platform     = :ios, "8.0"
@@ -31,13 +31,13 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/fanxiangyang/FanRefresh.git", :tag => s.version.to_s }
 
-  s.source_files  = "Classes/**/*.swift"
+  s.source_files  = "Classes/*.swift"
   #s.exclude_files = "Classes/Exclude"
 
   # s.public_header_files = "Classes/FanKit.h","Classes/FanKitHead.h"
 
   # s.resources  = "icon.png"
-  s.resources = "Classes/Refresh/FanRefresh.bundle"
+  s.resources = "Classes/FanRefresh.bundle"
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
