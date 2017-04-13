@@ -21,18 +21,28 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
 //        self.navigationController?.navigationBar.isTranslucent=false
 
         
-        self.dataArray=[["下拉刷新-默认","下拉刷新-修改","下拉刷新-隐藏","下拉刷新-GIF"],["上拉加载-默认","上拉加载-修改","上拉加载-没有更多数据","上拉加载-GIF"],["UICollectionView"],["UIWebView"]]
-        self.detailArray=[["FanTableViewController - example01","FanTableViewController - example02","FanTableViewController - example03","FanTableViewController - example04"],["FanTableViewController - example05","FanTableViewController - example06","FanTableViewController - example07","FanTableViewController - example08"],["FanCollectionView"],["FanWebView"]]
+        self.dataArray=[["下拉刷新-默认","下拉刷新-修改","下拉刷新-隐藏","下拉刷新-GIF"],["上拉加载-默认","上拉加载-修改","上拉加载-没有更多数据","上拉加载-GIF"],["UICollectionView"],["UIWebView"],["UIRefreshControl(系统自带控件)","UIRefreshControl 修改"]]
+        self.detailArray=[["FanTableViewController - example01","FanTableViewController - example02","FanTableViewController - example03","FanTableViewController - example04"],["FanTableViewController - example05","FanTableViewController - example06","FanTableViewController - example07","FanTableViewController - example08"],["FanCollectionView"],["FanWebView"],["FanTableViewController - example09","FanTableViewController - example10"]]
         
         self.configUI()
         
         weak var weakSelf=self
+        
+        
+        //系统自带简洁下拉
+        let refreshControl = FanRefreshControl.fan_addRefresh(target: self, action: #selector(fan_loadData))
+//        refreshControl.fan_isHidderTitle=false
+//        refreshControl.tintColor = UIColor.red
+//        refreshControl.fan_textColor = UIColor.red
+        if #available(iOS 10.0, *) {
+            self.tableView?.refreshControl = refreshControl
+        }else{
+            self.tableView?.fan_refreshControl = refreshControl
+        }
         //下拉
-        self.tableView?.fan_header = FanRefreshHeaderDefault.headerRefreshing(refreshingBlock: {
-            weakSelf?.fan_loadData()
-        })
-//        self.tableView?.fan_header?.backgroundColor=UIColor.red
-//        self.tableView?.fan_header?.fan_automaticallyChangeAlpha=false
+//        self.tableView?.fan_header = FanRefreshHeaderDefault.headerRefreshing(refreshingBlock: {
+//            weakSelf?.fan_loadData()
+//        })
         
         //上拉
         self.tableView?.fan_footer=FanRefreshFooterDefault.footerRefreshing(refreshingBlock: {
@@ -41,10 +51,19 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         
     }
     func fan_loadData() {
+        if #available(iOS 10.0, *) {
+            self.tableView?.refreshControl?.beginRefreshing()
+        }else{
+            self.tableView?.fan_refreshControl?.beginRefreshing()
+        }
         weak var weakTableView=self.tableView
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1.0) {
             weakTableView?.reloadData()
-            weakTableView?.fan_header?.fan_endRefreshing()
+            if #available(iOS 10.0, *) {
+                weakTableView?.refreshControl?.endRefreshing()
+            }else{
+                weakTableView?.fan_refreshControl?.endRefreshing()
+            }
         }
         
     }
@@ -93,7 +112,6 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         if indexPath.section == 0 || indexPath.section == 1 {
             let vc:FanTableViewController? = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "FanTableViewController") as? FanTableViewController
             vc?.fan_indexPath=indexPath
-            
             self.navigationController?.pushViewController(vc!, animated: true)
         }else if indexPath.section == 2 {
             let vc:FanCollectionViewController = FanCollectionViewController()
@@ -101,6 +119,10 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         }else if indexPath.section == 3 {
             let vc:FanWebViewController = FanWebViewController()
             self.navigationController?.pushViewController(vc, animated: true)
+        }else if indexPath.section == 4 {
+            let vc:FanTableViewController? = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "FanTableViewController") as? FanTableViewController
+            vc?.fan_indexPath=indexPath
+            self.navigationController?.pushViewController(vc!, animated: true)
         }
        
         

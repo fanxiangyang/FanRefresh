@@ -8,7 +8,7 @@ Introduce（介绍）
 
 FanRefresh ScrollView Refresh。
 
-现在只支持默认的上拉下拉，git图片在定制中，其他用户可以自己定制
+超级好用的上拉下拉，git图片定制，系统UIRefreshControl,其他用户可以自己定制DIY
 
 * Refresh 		— 基本类扩展和常量定义。
 * Header		— 下拉刷新控件。
@@ -18,16 +18,22 @@ Installation（安装）
 ==============
 ### CocoaPods
 
-1. Add `pod "FanRefresh"` to your Podfile.
+1. Add `pod 'FanRefresh','~> 0.0.3'` to your Podfile.
 2. Run `pod install` or `pod update`.
+```
+如果 pod search  FanRefresh  查找不到，更新本地spec仓库 
+pod setup  或者  pod repo update
+结果还是查不到：清空搜索缓存再查询
+rm ~/Library/Caches/CocoaPods/search_index.json 
+```
 
 ### 手动安装
 
 1. 下载 FanRefresh项目
 2. 将 FanRefresh项目里面Classes文件夹及内的源文件添加(拖放)到你的工程。
 3. 链接以下 frameworks:
-    * UIKit
-    * Foundation
+   * UIKit
+   * Foundation
 
 Requirements(系统要求)
 ==============
@@ -73,8 +79,8 @@ fanHeader.backgroundColor=UIColor.yellow
 //文字与菊花之间的间距（默认20）
 fanHeader.fan_labelInsetLeft=40.0
 //修改状态字体内容（默认支持 中文，繁体中文，和英文）
-fanHeader.fan_setTitle(title: "下拉可以刷新", state: .FanRefreshStateDefault)
-fanHeader.fan_setTitle(title: "松开立即刷新", state: .FanRefreshStatePulling)
+fanHeader.fan_setTitle(title: "下拉可以刷新", state: .Default)
+fanHeader.fan_setTitle(title: "松开立即刷新", state: .Pulling)
 fanHeader.fan_setTitle(title: "正在刷新数据中...", state: .FanRefreshStateRefreshing)
 //修改状态和时间显示的字体颜色和大小样式
 fanHeader.fan_stateLabel.textColor=FanRefreshColor(r: 250, g: 34, b: 43, a: 1)
@@ -98,11 +104,57 @@ fanHeader.fan_autoRefresh(thanIntervalTime: 5.0)
 //--------------------------------特有end-----------------------------------
 
 ```
+### 4.系统自带UIRefreshControl刷新
+
+```
+//系统自带简洁下拉
+override func viewDidLoad() {
+    super.viewDidLoad()
+    self.dataArray=Array()
+
+    let refreshControl = FanRefreshControl.fan_addRefresh(target: self, action: #selector(fan_loadDataControl))
+	//这样也是可以的
+	if #available(iOS 10.0, *) {
+	    self.tableView?.refreshControl = refreshControl
+	}else{
+	    self.tableView?.fan_refreshControl = refreshControl
+    }
+}
+
+
+//加载数据，模拟5秒后刷新
+func fan_loadDataControl() {
+    if #available(iOS 10.0, *) {
+        (self.tableView?.refreshControl as! FanRefreshControl).fan_beginRefreshing()
+    }else{
+        self.tableView?.fan_refreshControl?.fan_beginRefreshing()
+    }
+    weak var weakTableView=self.tableView
+    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+5.0) {
+        //这里修改数据，能防止cell复用时调用cell代理数组越界问题
+        self.dataArray = ["6","7","8","9","10"]
+
+        weakTableView?.reloadData()
+
+        if #available(iOS 10.0, *) {
+            weakTableView?.refreshControl?.endRefreshing()
+        }else{
+            weakTableView?.fan_refreshControl?.endRefreshing()
+        }
+    }
+}
+
+```
+更新历史(Version Update)
+==============
+### Version(0.0.3)
+* 支持简单的上拉和下拉刷新，没有GIF图片
+### Version(0.0.4) PTR
+* 简化枚举属性
+* 添加系统控件UIRefreshControl实现下拉刷新
 
 
 Like(喜欢)
 ==============
-#### 有问题请直接在文章下面留言。
-#### 喜欢此系列文章可以点击上面右侧的 Star 哦，变成 Unstar 就可以了！ 
-### 开发人：凡向阳
+#### 有问题请直接在文章下面留言,喜欢就给个Star(小星星)吧！ 
 #### Email:fqsyfan@gmail.com

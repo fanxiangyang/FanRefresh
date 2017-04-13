@@ -10,17 +10,17 @@ import UIKit
 
 /// 刷新控件状态
 ///
-/// - FanRefreshStateDefault: 默认闲着状态
-/// - FanRefreshStatePulling: 松开就可以刷新的状态
-/// - FanRefreshStateRefreshing: 正在刷新状态
-/// - FanRefreshStateWillRefresh: 即将刷新状态
-/// - FanRefreshStateNoMoreData: 数据加载完成，没有更多数据
+/// - Default: 默认闲着状态
+/// - Pulling: 松开就可以刷新的状态
+/// - Refreshing: 正在刷新状态
+/// - WillRefresh: 即将刷新状态
+/// - NoMoreData: 数据加载完成，没有更多数据
 public enum FanRefreshState:Int {
-    case FanRefreshStateDefault=0
-    case FanRefreshStatePulling=1
-    case FanRefreshStateRefreshing=2
-    case FanRefreshStateWillRefresh=3
-    case FanRefreshStateNoMoreData=4
+    case Default=0
+    case Pulling=1
+    case Refreshing=2
+    case WillRefresh=3
+    case NoMoreData=4
 }
 
 
@@ -49,7 +49,7 @@ public class FanRefreshComponent: UIView {
     /// 结束刷新
     public var fan_endRefreshBlock:FanRefreshComponentEndRefreshingBlock?
 
-    public var state:FanRefreshState = .FanRefreshStateDefault{
+    public var state:FanRefreshState = .Default{
         willSet{
 //            print("\(self.state)----\(newValue)\n")
 //            self.fan_changeState(newState: newValue)
@@ -92,7 +92,7 @@ public class FanRefreshComponent: UIView {
     
    public override init(frame: CGRect) {
         super.init(frame: frame)
-        self.state = .FanRefreshStateDefault
+        self.state = .Default
         self.fan_prepare()
     }
     
@@ -110,8 +110,8 @@ public class FanRefreshComponent: UIView {
     public override  func draw(_ rect: CGRect) {
         super.draw(rect)
         // 预防view还没显示出来就调用了fan_beginRefreshing
-        if self.state == .FanRefreshStateWillRefresh {
-            self.state = .FanRefreshStateRefreshing
+        if self.state == .WillRefresh {
+            self.state = .Refreshing
         }
     }
     
@@ -229,11 +229,11 @@ public class FanRefreshComponent: UIView {
         self.fan_pullingPercent=1.0
         //只要正在刷新，就完全显示
         if (self.window != nil) {
-            self.state = .FanRefreshStateRefreshing
+            self.state = .Refreshing
         }else{
             // 预防正在刷新中时，调用本方法使得header inset回置失败
-            if self.state != .FanRefreshStateRefreshing {
-                self.state = .FanRefreshStateWillRefresh
+            if self.state != .Refreshing {
+                self.state = .WillRefresh
                 // 刷新(预防从另一个控制器回到这个控制器的情况，回来要重新刷新一下)
                 self.setNeedsDisplay()
             }
@@ -245,7 +245,7 @@ public class FanRefreshComponent: UIView {
     }
     /// 结束刷新
     public func fan_endRefreshing() {
-        self.state = .FanRefreshStateDefault
+        self.state = .Default
     }
     public func fan_endRefreshing(endRefreshBlock:@escaping FanRefreshComponentEndRefreshingBlock) {
         self.fan_endRefreshBlock=endRefreshBlock
@@ -256,13 +256,13 @@ public class FanRefreshComponent: UIView {
     ///
     /// - Returns: false/ture
     public func isRefreshing() -> (Bool){
-        return self.state == .FanRefreshStateRefreshing || self.state == .FanRefreshStateWillRefresh
+        return self.state == .Refreshing || self.state == .WillRefresh
     }
     
     //这里是只读的计算属性，不设置set，默认是只读的
 //    var isRefreshing:Bool{
 //        get{
-//            return self.state == .FanRefreshStateRefreshing || self.state == .FanRefreshStateWillRefresh
+//            return self.state == .Refreshing || self.state == .WillRefresh
 //        }
 //    }
 

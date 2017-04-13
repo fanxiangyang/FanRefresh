@@ -17,6 +17,7 @@
 		66A3428C1E8B61B3002D8F83 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66A3428A1E8B61B3002D8F83 /* LaunchScreen.storyboard */; };
 		66A342971E8B61B3002D8F83 /* FanRefreshTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A342961E8B61B3002D8F83 /* FanRefreshTests.swift */; };
 		66A342A21E8B61B3002D8F83 /* FanRefreshUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A342A11E8B61B3002D8F83 /* FanRefreshUITests.swift */; };
+		66AEE5211E9E132500CCD0C9 /* FanRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66AEE5201E9E132500CCD0C9 /* FanRefreshControl.swift */; };
 		66B678FF1E9C92B800B07D47 /* Bundle+FanRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B678F91E9C92B800B07D47 /* Bundle+FanRefresh.swift */; };
 		66B679001E9C92B800B07D47 /* FanRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 66B678FA1E9C92B800B07D47 /* FanRefresh.bundle */; };
 		66B679011E9C92B800B07D47 /* FanRefreshComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B678FB1E9C92B800B07D47 /* FanRefreshComponent.swift */; };
@@ -47,7 +48,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		6691C76A1E9B2D2500548657 /* FanTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FanTableViewController.swift; sourceTree = "<group>"; };
+		6691C76A1E9B2D2500548657 /* FanTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FanTableViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		6691C76C1E9B2D5000548657 /* FanWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FanWebViewController.swift; sourceTree = "<group>"; };
 		6691C76E1E9B360A00548657 /* FanCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FanCollectionViewController.swift; sourceTree = "<group>"; };
 		66A3427E1E8B61B3002D8F83 /* FanRefresh.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FanRefresh.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,16 +64,17 @@
 		66A3429D1E8B61B3002D8F83 /* FanRefreshUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FanRefreshUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		66A342A11E8B61B3002D8F83 /* FanRefreshUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FanRefreshUITests.swift; sourceTree = "<group>"; };
 		66A342A31E8B61B3002D8F83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		66AEE5201E9E132500CCD0C9 /* FanRefreshControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FanRefreshControl.swift; sourceTree = "<group>"; };
 		66B678F91E9C92B800B07D47 /* Bundle+FanRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle+FanRefresh.swift"; sourceTree = "<group>"; };
 		66B678FA1E9C92B800B07D47 /* FanRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FanRefresh.bundle; sourceTree = "<group>"; };
-		66B678FB1E9C92B800B07D47 /* FanRefreshComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FanRefreshComponent.swift; sourceTree = "<group>"; };
+		66B678FB1E9C92B800B07D47 /* FanRefreshComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FanRefreshComponent.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		66B678FC1E9C92B800B07D47 /* FanRefreshConst.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FanRefreshConst.swift; sourceTree = "<group>"; };
 		66B678FD1E9C92B800B07D47 /* UIScrollView+FanRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+FanRefresh.swift"; sourceTree = "<group>"; };
 		66B678FE1E9C92B800B07D47 /* UIView+FanExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+FanExtension.swift"; sourceTree = "<group>"; };
 		66B679071E9C92E600B07D47 /* FanRefreshFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FanRefreshFooter.swift; sourceTree = "<group>"; };
 		66B679081E9C92E600B07D47 /* FanRefreshFooterDefault.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FanRefreshFooterDefault.swift; sourceTree = "<group>"; };
-		66B6790B1E9C92EE00B07D47 /* FanRefreshHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FanRefreshHeader.swift; sourceTree = "<group>"; };
-		66B6790C1E9C92EE00B07D47 /* FanRefreshHeaderDefault.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FanRefreshHeaderDefault.swift; sourceTree = "<group>"; };
+		66B6790B1E9C92EE00B07D47 /* FanRefreshHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FanRefreshHeader.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		66B6790C1E9C92EE00B07D47 /* FanRefreshHeaderDefault.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FanRefreshHeaderDefault.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,6 +191,7 @@
 		66B679051E9C92C100B07D47 /* Header */ = {
 			isa = PBXGroup;
 			children = (
+				66AEE5201E9E132500CCD0C9 /* FanRefreshControl.swift */,
 				66B6790B1E9C92EE00B07D47 /* FanRefreshHeader.swift */,
 				66B6790C1E9C92EE00B07D47 /* FanRefreshHeaderDefault.swift */,
 			);
@@ -354,6 +357,7 @@
 				66B678FF1E9C92B800B07D47 /* Bundle+FanRefresh.swift in Sources */,
 				66B679011E9C92B800B07D47 /* FanRefreshComponent.swift in Sources */,
 				66B679041E9C92B800B07D47 /* UIView+FanExtension.swift in Sources */,
+				66AEE5211E9E132500CCD0C9 /* FanRefreshControl.swift in Sources */,
 				66B679031E9C92B800B07D47 /* UIScrollView+FanRefresh.swift in Sources */,
 				66B6790D1E9C92EE00B07D47 /* FanRefreshHeader.swift in Sources */,
 			);

@@ -14,3 +14,9 @@
 "FanRefreshHeaderLastTimeText" = "最後更新：";
 "FanRefreshHeaderDateTodayText" = "今天";
 "FanRefreshHeaderNoneLastDateText" = "無記錄";
+
+
+//UIRefreshControl
+"FanRefreshControlDefaultText"  =   "下拉可以刷新";
+"FanRefreshControlPullingText"  =   "鬆開立即刷新";
+"FanRefreshControlRefreshingText"   =   "正在刷新數據中...";

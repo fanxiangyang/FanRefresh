@@ -58,7 +58,7 @@ public class FanRefreshFooterDefault: FanRefreshFooter {
     }
     
    public  func fan_stateLabelClick() {
-        if self.state == .FanRefreshStateDefault {
+        if self.state == .Default {
             self.fan_beginRefreshing()
         }
     }
@@ -71,14 +71,11 @@ public class FanRefreshFooterDefault: FanRefreshFooter {
         //初始化UI,放在最前面(已经用懒加载)
         //        self.addSubview(self.fan_stateLabel)
         //        self.addSubview(self.fan_lastUpdatedTimeLabel)
-        
-        //初始化文字与图片边距（已经在创建的时候初始化了）
-        //        self.fan_labelInsetLeft = FanRefreshLabelInsetLeft
-        
+    
         //初始化状态文字
-        self.fan_setTitle(title: Bundle.fan_localizedString(key: FanRefreshAutoFooterDefaultText), state: .FanRefreshStateDefault)
-        self.fan_setTitle(title: Bundle.fan_localizedString(key: FanRefreshAutoFooterRefreshingText), state: .FanRefreshStateRefreshing)
-        self.fan_setTitle(title: Bundle.fan_localizedString(key: FanRefreshAutoFooterNoMoreDataText), state: .FanRefreshStateNoMoreData)
+        self.fan_setTitle(title: Bundle.fan_localizedString(key: FanRefreshAutoFooterDefaultText), state: .Default)
+        self.fan_setTitle(title: Bundle.fan_localizedString(key: FanRefreshAutoFooterRefreshingText), state: .Refreshing)
+        self.fan_setTitle(title: Bundle.fan_localizedString(key: FanRefreshAutoFooterNoMoreDataText), state: .NoMoreData)
         
         //添加手势按钮
         self.fan_stateLabel.isUserInteractionEnabled = true
@@ -115,14 +112,14 @@ public class FanRefreshFooterDefault: FanRefreshFooter {
         }
         super.fan_changeState(oldState: oldState)
         //设置状态文字
-        if self.fan_isRefreshTitleHidden && self.state == .FanRefreshStateRefreshing {
+        if self.fan_isRefreshTitleHidden && self.state == .Refreshing {
             self.fan_stateLabel.text=nil
         }else{
             self.fan_stateLabel.text=self.fan_stateTitles[state]
         }
 
         //设置菊花
-        if self.state == .FanRefreshStateNoMoreData || self.state == .FanRefreshStateDefault {
+        if self.state == .NoMoreData || self.state == .Default {
             self.fan_loadingView?.stopAnimating()
         }else{
             self.fan_loadingView?.startAnimating()

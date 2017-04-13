@@ -12,7 +12,8 @@ import UIKit
 
 private  var FanRefreshHeaderKey=0
 private  var FanRefreshFooterKey=1
-private  var FanRefreshReloadDataBlockKey=2
+private  var FanRefreshControlKey=2
+private  var FanRefreshReloadDataBlockKey=3
 
 public extension UIScrollView {
     
@@ -121,7 +122,22 @@ public extension UIScrollView {
             }
         }
     }
-    
+    /// 系统自带刷新控件
+    public var fan_refreshControl:FanRefreshControl?{
+        get{
+            return objc_getAssociatedObject(self, &FanRefreshControlKey) as? FanRefreshControl
+        }
+        set{
+            if newValue != self.fan_refreshControl {
+                self.fan_refreshControl?.removeFromSuperview()
+                self.insertSubview(newValue!, at: 0)
+                self.willChangeValue(forKey: "fan_refreshControl")
+                objc_setAssociatedObject(self, &FanRefreshControlKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                self.didChangeValue(forKey: "fan_refreshControl")
+            }
+        }
+    }
+
     /// 上拉新控件
     public var fan_footer:FanRefreshFooter?{
         get{

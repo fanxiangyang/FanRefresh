@@ -123,22 +123,11 @@ public class FanRefreshHeaderDefault: FanRefreshHeader {
         super.fan_prepare()
         
         //初始化UI,放在最前面(已经用懒加载)
-//        self.addSubview(self.fan_stateLabel)
-//        self.addSubview(self.fan_lastUpdatedTimeLabel)
         
-        //初始化文字与图片边距（已经在创建的时候初始化了）
-//        self.fan_labelInsetLeft = FanRefreshLabelInsetLeft
-        
-        //初始化状态文字
-//        self.fan_setTitle(title: "下拉可以刷新", state: .FanRefreshStateDefault)
-//        self.fan_setTitle(title: "松开立即刷新", state: .FanRefreshStatePulling)
-//        self.fan_setTitle(title: "正在刷新数据中...", state: .FanRefreshStateRefreshing)
-        
-        self.fan_setTitle(title: Bundle.fan_localizedString(key: FanRefreshHeaderDefaultText), state: .FanRefreshStateDefault)
-        self.fan_setTitle(title: Bundle.fan_localizedString(key: FanRefreshHeaderPullingText), state: .FanRefreshStatePulling)
-        self.fan_setTitle(title: Bundle.fan_localizedString(key: FanRefreshHeaderRefreshingText), state: .FanRefreshStateRefreshing)
-        
-        
+        //初始化状态文字（已经国际化）
+        self.fan_setTitle(title: Bundle.fan_localizedString(key: FanRefreshHeaderDefaultText), state: .Default)
+        self.fan_setTitle(title: Bundle.fan_localizedString(key: FanRefreshHeaderPullingText), state: .Pulling)
+        self.fan_setTitle(title: Bundle.fan_localizedString(key: FanRefreshHeaderRefreshingText), state: .Refreshing)
     }
     
     override public func fan_placeSubviews() {
@@ -209,13 +198,13 @@ public class FanRefreshHeaderDefault: FanRefreshHeader {
         
         
         //MARK:  箭头和菊花状态变化
-        if self.state == .FanRefreshStateDefault {
-            if oldState == .FanRefreshStateRefreshing {
+        if self.state == .Default {
+            if oldState == .Refreshing {
                 self.fan_arrowView.transform = CGAffineTransform.identity
                 UIView.animate(withDuration: FanRefreshSlowAnimationDuration, animations: { 
                     self.fan_loadingView?.alpha=0.0
                 }, completion: { (finished) in
-                    if self.state != .FanRefreshStateDefault {
+                    if self.state != .Default {
                         return
                     }
                     self.alpha=1.0
@@ -229,20 +218,18 @@ public class FanRefreshHeaderDefault: FanRefreshHeader {
                     self.fan_arrowView.transform = CGAffineTransform.identity
                 })
             }
-        }else if self.state == .FanRefreshStatePulling {
+        }else if self.state == .Pulling {
             self.fan_loadingView?.stopAnimating()
             self.fan_arrowView.isHidden=false
             UIView.animate(withDuration: FanRefreshAnimationDuration, animations: { 
                 self.fan_arrowView.transform=CGAffineTransform(rotationAngle: (CGFloat(0.0000001 - Double.pi)))
             })
-        }else if self.state == .FanRefreshStateRefreshing {
+        }else if self.state == .Refreshing {
             self.fan_loadingView?.alpha=1.0
             self.fan_loadingView?.startAnimating()
             self.fan_arrowView.isHidden=true
         
         }
-
-        
     }
     /*
     // Only override draw() if you perform custom drawing.

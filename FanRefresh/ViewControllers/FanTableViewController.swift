@@ -128,7 +128,8 @@ class FanTableViewController: UITableViewController {
             exampleIndex = (self.fan_indexPath?.row)!
         case 1:
             exampleIndex = (self.fan_indexPath?.row)! + 4
-
+        case 4:
+            exampleIndex = (self.fan_indexPath?.row)! + 8
         default: break
             
         }
@@ -149,6 +150,10 @@ class FanTableViewController: UITableViewController {
              self.example07()
         case 7:
             self.example08()
+        case 8:
+            self.example09()
+        case 9:
+            self.example10()
         default: break
             
         }
@@ -180,9 +185,9 @@ class FanTableViewController: UITableViewController {
         //文字与菊花之间的间距（默认20）
         fanHeader.fan_labelInsetLeft=40.0
         //修改状态字体内容（默认支持 中文，繁体中文，和英文）
-        fanHeader.fan_setTitle(title: "下拉可以刷新", state: .FanRefreshStateDefault)
-        fanHeader.fan_setTitle(title: "松开立即刷新", state: .FanRefreshStatePulling)
-        fanHeader.fan_setTitle(title: "正在刷新数据中...", state: .FanRefreshStateRefreshing)
+        fanHeader.fan_setTitle(title: "下拉可以刷新", state: .Default)
+        fanHeader.fan_setTitle(title: "松开立即刷新", state: .Pulling)
+        fanHeader.fan_setTitle(title: "正在刷新数据中...", state: .Refreshing)
         //修改状态和时间显示的字体颜色和大小样式
         fanHeader.fan_stateLabel.textColor=FanRefreshColor(r: 250, g: 34, b: 43, a: 1)
         fanHeader.fan_stateLabel.font=UIFont.boldSystemFont(ofSize: 14)
@@ -259,9 +264,9 @@ class FanTableViewController: UITableViewController {
         //文字与菊花之间的间距（默认20）
         fanFooter.fan_labelInsetLeft=40.0
         //修改状态字体内容（默认支持 中文，繁体中文，和英文）
-        fanFooter.fan_setTitle(title: "点击或上拉加载更多", state: .FanRefreshStateDefault)
-        fanFooter.fan_setTitle(title: "正在加载更多的数据...", state: .FanRefreshStateRefreshing)
-        fanFooter.fan_setTitle(title: "已经全部加载完毕", state: .FanRefreshStateNoMoreData)
+        fanFooter.fan_setTitle(title: "点击或上拉加载更多", state: .Default)
+        fanFooter.fan_setTitle(title: "正在加载更多的数据...", state: .Refreshing)
+        fanFooter.fan_setTitle(title: "已经全部加载完毕", state: .NoMoreData)
         //修改状态和时间显示的字体颜色和大小样式
         fanFooter.fan_stateLabel.textColor=FanRefreshColor(r: 250, g: 34, b: 43, a: 1)
         fanFooter.fan_stateLabel.font=UIFont.boldSystemFont(ofSize: 14)
@@ -297,7 +302,7 @@ class FanTableViewController: UITableViewController {
         let fanFooter=self.tableView.fan_footer as! FanRefreshFooterDefault
         
         //不建议在外部修改状态
-//        fanFooter.state = .FanRefreshStateNoMoreData
+//        fanFooter.state = .NoMoreData
         
         fanFooter.fan_endRefreshingWithNoMoreData()
         
@@ -315,6 +320,56 @@ class FanTableViewController: UITableViewController {
         
         
     }
+    
+    func example09() {
+        weak var weakSelf=self
+        //系统自带简洁下拉
+        let refreshControl = FanRefreshControl.fan_addRefresh(target: self, action: #selector(fan_loadDataControl))
+        
+        //这样也是可以的
+        if #available(iOS 10.0, *) {
+            self.tableView?.refreshControl = refreshControl
+        }else{
+            self.tableView?.fan_refreshControl = refreshControl
+        }
+        
+//        self.tableView?.fan_refreshControl = refreshControl
+
+
+        //上拉
+        self.tableView.fan_footer=FanRefreshFooterDefault.footerRefreshing(refreshingBlock: {
+            weakSelf?.fan_loadMoreData()
+        })
+        
+        
+    }
+
+    func example10() {
+        weak var weakSelf=self
+        //下拉
+        //系统自带简洁下拉
+        let refreshControl = FanRefreshControl.fan_addRefresh(target: self, action: #selector(fan_loadDataControl))
+        //是否显示状态文本
+        refreshControl.fan_isHidderTitle=false
+        //修改菊花颜色
+        refreshControl.tintColor = UIColor.red
+        //修改字体颜色
+        refreshControl.fan_textColor = UIColor.red
+        if #available(iOS 10.0, *) {
+            self.tableView?.refreshControl = refreshControl
+        }else{
+            self.tableView?.fan_refreshControl = refreshControl
+        }
+//        self.tableView?.fan_refreshControl = refreshControl
+
+        //上拉
+        self.tableView.fan_footer=FanRefreshFooterDefault.footerRefreshing(refreshingBlock: {
+            weakSelf?.fan_loadMoreData()
+        })
+        
+        
+    }
+
     // MARK: - 数据处理
 
     func fan_loadData() {
@@ -329,7 +384,6 @@ class FanTableViewController: UITableViewController {
 //            weakTableView?.reloadData()
 
         }
-        
     }
     func fan_loadMoreData() {
         weak var weakTableView=self.tableView
@@ -342,6 +396,31 @@ class FanTableViewController: UITableViewController {
 
         }
         
+    }
+    func fan_loadDataControl() {
+   
+//        self.dataArray = ["6","7","8","9","10"]
+        if #available(iOS 10.0, *) {
+            (self.tableView?.refreshControl as! FanRefreshControl).fan_beginRefreshing()
+        }else{
+            self.tableView?.fan_refreshControl?.fan_beginRefreshing()
+        }
+//        self.tableView?.fan_refreshControl?.fan_beginRefreshing()
+        weak var weakTableView=self.tableView
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+5.0) {
+            //这里修改数据，能防止cell复用时调用cell代理数组越界问题
+            self.dataArray = ["6","7","8","9","10"]
+
+            weakTableView?.reloadData()
+
+            if #available(iOS 10.0, *) {
+                weakTableView?.refreshControl?.endRefreshing()
+            }else{
+                weakTableView?.fan_refreshControl?.endRefreshing()
+            }
+//            weakTableView?.fan_refreshControl?.endRefreshing()
+
+        }
     }
     func configData() -> () {
 //        self.dataArray=self.dataArray! + ["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14"]
@@ -360,6 +439,7 @@ class FanTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print((self.dataArray?.count)!)
         return (self.dataArray?.count)!
     }
 
@@ -368,8 +448,12 @@ class FanTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 
         // Configure the cell...
+        print(self.dataArray?.count)
+        print(indexPath)
+
         cell.textLabel?.text=(self.dataArray?[indexPath.row] as? String)
 //        cell.textLabel?.text=(self.dataArray?[indexPath.row] as? String)! + "ueiyruieyrwiuewyriuewyriewyriewyriuyr"
+        print(cell.textLabel?.text)
 
         return cell
     }

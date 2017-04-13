@@ -65,6 +65,11 @@ public let FanRefreshHeaderLastTimeText = "FanRefreshHeaderLastTimeText"
 public let FanRefreshHeaderDateTodayText = "FanRefreshHeaderDateTodayText"
 public let FanRefreshHeaderNoneLastDateText = "FanRefreshHeaderNoneLastDateText"
 
+public let FanRefreshControlDefaultText = "FanRefreshControlDefaultText"
+public let FanRefreshControlPullingText = "FanRefreshControlPullingText"
+public let FanRefreshControlRefreshingText = "FanRefreshControlRefreshingText"
+
+
 //MARK: - 方法宏定义
 public func FanRefreshColor(r:CGFloat,g:CGFloat,b:CGFloat,a:CGFloat)->UIColor{
     return UIColor(red: (r)/255.0, green: (g)/255.0, blue: (b)/255.0, alpha: (a))

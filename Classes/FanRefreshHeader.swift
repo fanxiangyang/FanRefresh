@@ -73,8 +73,8 @@ public class FanRefreshHeader: FanRefreshComponent {
         }
         super.fan_changeState(oldState: oldState)
 
-        if self.state == .FanRefreshStateDefault {
-            if oldState != .FanRefreshStateRefreshing {
+        if self.state == .Default {
+            if oldState != .Refreshing {
                 return
             }
             //保存刷新时间
@@ -96,7 +96,7 @@ public class FanRefreshHeader: FanRefreshComponent {
             })
             
             //结束刷新回调
-        }else if self.state == .FanRefreshStateRefreshing{
+        }else if self.state == .Refreshing{
             DispatchQueue.main.async {
                 UIView.animate(withDuration: FanRefreshSlowAnimationDuration, animations: {
                     //跳转滚动区域，让控件可以可见
@@ -116,16 +116,12 @@ public class FanRefreshHeader: FanRefreshComponent {
     override public func fan_scrollViewContentOffsetDidChange(change: [NSKeyValueChangeKey : Any]) {
         super.fan_scrollViewContentOffsetDidChange(change: change)
 //        print(change[.newKey])
-//        print("\(self.scrollViewOriginalInset)"+"========")
-//        print("\(self.superScrollView?.contentInset)"+"-------")
-        if self.state == .FanRefreshStateRefreshing{
+        if self.state == .Refreshing{
             if self.window == nil {
                 return
             }
             
             // sectionheader停留状态
-//            print("\(self.scrollViewOriginalInset)"+"========")
-//            print("\(self.superScrollView?.contentInset)"+"-------")
             var insetT = -((self.superScrollView)?.fan_offsetY)! > ((self.scrollViewOriginalInset)?.top)! ? -((self.superScrollView)?.fan_offsetY)! : (self.scrollViewOriginalInset?.top)!
             insetT = insetT > self.fan_height + (self.scrollViewOriginalInset?.top)! ? self.fan_height + (self.scrollViewOriginalInset?.top)! : insetT
             self.superScrollView?.fan_insetTop=insetT
@@ -147,18 +143,18 @@ public class FanRefreshHeader: FanRefreshComponent {
         let pullingPercent = (happenOffsetY-offsetY)/self.fan_height
         if (self.superScrollView?.isDragging)! {
             self.fan_pullingPercent=pullingPercent
-            if self.state == .FanRefreshStateDefault && offsetY < normalPullingOffsetY {
+            if self.state == .Default && offsetY < normalPullingOffsetY {
                 //将要刷新状态,拖拽超过控件高度
-                self.state = .FanRefreshStatePulling
+                self.state = .Pulling
 //                print("2222222")
 
-            }else if self.state == .FanRefreshStatePulling && offsetY >= normalPullingOffsetY {
+            }else if self.state == .Pulling && offsetY >= normalPullingOffsetY {
                 //转为普通默认状态，拖拽超过又小于控件高度
-                self.state = .FanRefreshStateDefault
+                self.state = .Default
 //                print("33333333")
 
             }
-        }else if self.state == .FanRefreshStatePulling {
+        }else if self.state == .Pulling {
             //即将刷新或手松开开始刷新
 //            print("44444444")
             self.fan_beginRefreshing()
@@ -172,7 +168,7 @@ public class FanRefreshHeader: FanRefreshComponent {
     //MARK: -  覆盖基类方法
     override public func fan_endRefreshing() {
         DispatchQueue.main.async {
-            self.state = .FanRefreshStateDefault
+            self.state = .Default
         }
         self.superScrollView?.fan_hiddenFooterWhenNull()
 
