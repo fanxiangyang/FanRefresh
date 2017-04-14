@@ -407,7 +407,7 @@ class FanTableViewController: UITableViewController {
         }
 //        self.tableView?.fan_refreshControl?.fan_beginRefreshing()
         weak var weakTableView=self.tableView
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+5.0) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+2.0) {
             //这里修改数据，能防止cell复用时调用cell代理数组越界问题
             self.dataArray = ["6","7","8","9","10"]
 

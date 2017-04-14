@@ -20,6 +20,7 @@ Installation（安装）
 
 1. Add `pod 'FanRefresh','~> 0.0.3'` to your Podfile.
 2. Run `pod install` or `pod update`.
+
 ```
 如果 pod search  FanRefresh  查找不到，更新本地spec仓库 
 pod setup  或者  pod repo update
@@ -81,7 +82,7 @@ fanHeader.fan_labelInsetLeft=40.0
 //修改状态字体内容（默认支持 中文，繁体中文，和英文）
 fanHeader.fan_setTitle(title: "下拉可以刷新", state: .Default)
 fanHeader.fan_setTitle(title: "松开立即刷新", state: .Pulling)
-fanHeader.fan_setTitle(title: "正在刷新数据中...", state: .FanRefreshStateRefreshing)
+fanHeader.fan_setTitle(title: "正在刷新数据中...", state: .Refreshing)
 //修改状态和时间显示的字体颜色和大小样式
 fanHeader.fan_stateLabel.textColor=FanRefreshColor(r: 250, g: 34, b: 43, a: 1)
 fanHeader.fan_stateLabel.font=UIFont.boldSystemFont(ofSize: 14)
@@ -122,7 +123,7 @@ override func viewDidLoad() {
 }
 
 
-//加载数据，模拟5秒后刷新
+//加载数据，模拟2秒后刷新
 func fan_loadDataControl() {
     if #available(iOS 10.0, *) {
         (self.tableView?.refreshControl as! FanRefreshControl).fan_beginRefreshing()
@@ -130,7 +131,7 @@ func fan_loadDataControl() {
         self.tableView?.fan_refreshControl?.fan_beginRefreshing()
     }
     weak var weakTableView=self.tableView
-    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+5.0) {
+    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+2.0) {
         //这里修改数据，能防止cell复用时调用cell代理数组越界问题
         self.dataArray = ["6","7","8","9","10"]
 
@@ -147,11 +148,12 @@ func fan_loadDataControl() {
 ```
 更新历史(Version Update)
 ==============
-### Version(0.0.3)
+### Release 0.0.3
 * 支持简单的上拉和下拉刷新，没有GIF图片
-### Version(0.0.4) PTR
+
+### Release 0.0.4
 * 简化枚举属性
-* 添加系统控件UIRefreshControl实现下拉刷新
+* 添加系统控件UIRefreshControl实现下拉刷新(可兼容iOS10)
 
 
 Like(喜欢)
