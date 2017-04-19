@@ -18,7 +18,7 @@ Installation（安装）
 ==============
 ### CocoaPods
 
-1. Add `pod 'FanRefresh','~> 0.0.3'` to your Podfile.
+1. Add `pod 'FanRefresh','~> 0.0.4'` to your Podfile.
 2. Run `pod install` or `pod update`.
 
 ```
@@ -99,7 +99,7 @@ fanHeader.fan_lasUpdateTimeText = { ( lastUpdatTime ) in
     return "2017-04-01 12:00:00"
 }
 
-//添加5秒种后再次进入界面，自动下拉刷新  
+//添加5秒种后再次进入界面，自动下拉刷新  放到viewDidAppear里面
 //如果启用这个方式，最好启动时，直接调用 fanHeader.fan_beginRefreshing()
 fanHeader.fan_autoRefresh(thanIntervalTime: 5.0)
 //--------------------------------特有end-----------------------------------
@@ -154,6 +154,10 @@ func fan_loadDataControl() {
 ### Release 0.0.4
 * 简化枚举属性
 * 添加系统控件UIRefreshControl实现下拉刷新(可兼容iOS10)
+
+### Release 0.0.5  PTR
+* 修复中文字符串长度越界问题
+* 修复调用时间记录初次为空时崩溃的处理
 
 
 Like(喜欢)

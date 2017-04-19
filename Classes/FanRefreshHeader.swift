@@ -21,21 +21,23 @@ public class FanRefreshHeader: FanRefreshComponent {
             self.fan_setLastUpdatedTimeKey(timeKey:self.fan_lastUpdatedTimeKey)
         }
     }
-    public var fan_lastUpdatedTime:Date{
+    public var fan_lastUpdatedTime:Date?{
         get{
-            return UserDefaults.standard.object(forKey: self.fan_lastUpdatedTimeKey) as! Date
+            return UserDefaults.standard.object(forKey: self.fan_lastUpdatedTimeKey) as? Date
         }
     }
     /// 外部修改日期显示内容
-    public var fan_lasUpdateTimeText:((_ lastUpdatTime:Date) -> String?)?
+    public var fan_lasUpdateTimeText:((_ lastUpdatTime:Date?) -> String?)?
     
     //MARK: - 外部调用方法
     /// 如果大于上次刷新多少秒，将自动进入刷新
-    ///
+    /// 修复如果初次没有时间时，无记录状态，不做任何操作
     /// - Parameter afterTime: 几秒后 Double
     public func fan_autoRefresh(thanIntervalTime:TimeInterval) {
-        if fabs(fan_lastUpdatedTime.timeIntervalSinceNow) > thanIntervalTime {
-            self.fan_beginRefreshing()
+        if (self.fan_lastUpdatedTime != nil) {
+            if fabs((self.fan_lastUpdatedTime?.timeIntervalSinceNow)!) > thanIntervalTime {
+                self.fan_beginRefreshing()
+            }
         }
     }
    

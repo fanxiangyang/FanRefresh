@@ -88,7 +88,7 @@ public class FanRefreshHeaderDefault: FanRefreshHeader {
         //外部回调更新时间Label内容
         
         if (self.fan_lasUpdateTimeText != nil) {
-            self.fan_lastUpdatedTimeLabel.text=self.fan_lasUpdateTimeText!(lastUpdatedTime!)
+            self.fan_lastUpdatedTimeLabel.text=self.fan_lasUpdateTimeText?(lastUpdatedTime)
             return
         }
         

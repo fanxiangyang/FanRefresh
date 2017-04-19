@@ -204,7 +204,7 @@ class FanTableViewController: UITableViewController {
             return "2017-04-01 12:00:00"
         }
         
-        //添加5秒种后再次进入界面，自动下拉刷新  
+        //添加5秒种后再次进入界面，自动下拉刷新  ，此方法放到viewDidAppear
         //如果启用这个方式，最好启动时，直接调用 fanHeader.fan_beginRefreshing()
         fanHeader.fan_autoRefresh(thanIntervalTime: 5.0)
         //--------------------------------特有end-----------------------------------
