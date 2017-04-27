@@ -61,7 +61,7 @@ public class FanRefreshHeaderDefault: FanRefreshHeader {
         return loadingView
     }()
     
-    //MARK: - 本类方法
+    //MARK: - 外部类调用方法
 
     /// 设置title状态
     public func fan_setTitle(title:String?,state:FanRefreshState) {
@@ -132,35 +132,44 @@ public class FanRefreshHeaderDefault: FanRefreshHeader {
     
     override public func fan_placeSubviews() {
         super.fan_placeSubviews()
+        let centerY = self.fan_height * 0.5
         if (self.fan_stateLabel.isHidden) {
-            return
-        }
-        //判断是否有约束
-        let noConstrainsOnStatusLabel = (self.fan_stateLabel.constraints.count == 0)
-        if (self.fan_lastUpdatedTimeLabel.isHidden) {
-            if noConstrainsOnStatusLabel {
-                self.fan_stateLabel.frame = self.bounds
+            if self.fan_lastUpdatedTimeLabel.isHidden == false {
+                //更新时间
+                if self.fan_lastUpdatedTimeLabel.constraints.count == 0 {
+                    self.fan_lastUpdatedTimeLabel.fan_x=0.0
+                    self.fan_lastUpdatedTimeLabel.fan_y=centerY+10
+                    self.fan_lastUpdatedTimeLabel.fan_width=self.fan_width
+                    self.fan_lastUpdatedTimeLabel.fan_height=self.fan_height-(self.fan_lastUpdatedTimeLabel.fan_y)
+                }
             }
         }else{
-            let stateLabelHeight = self.fan_height * 0.5
-            if noConstrainsOnStatusLabel {
-                self.fan_stateLabel.fan_x=0.0
-                self.fan_stateLabel.fan_y=0.0
-                self.fan_stateLabel.fan_width = self.fan_width
-                self.fan_stateLabel.fan_height = stateLabelHeight
-            }
-            //更新时间
-            if self.fan_lastUpdatedTimeLabel.constraints.count == 0 {
-                self.fan_lastUpdatedTimeLabel.fan_x=0.0
-                self.fan_lastUpdatedTimeLabel.fan_y=stateLabelHeight
-                self.fan_lastUpdatedTimeLabel.fan_width=self.fan_width
-                self.fan_lastUpdatedTimeLabel.fan_height=self.fan_height-(self.fan_lastUpdatedTimeLabel.fan_y)
+            let noConstrainsOnStatusLabel = (self.fan_stateLabel.constraints.count == 0)
+            
+            if self.fan_lastUpdatedTimeLabel.isHidden {
+                if noConstrainsOnStatusLabel {
+                    self.fan_stateLabel.frame = self.bounds
+                }
+            }else{
+                if noConstrainsOnStatusLabel {
+                    self.fan_stateLabel.fan_x=0.0
+                    self.fan_stateLabel.fan_y=0.0
+                    self.fan_stateLabel.fan_width = self.fan_width
+                    self.fan_stateLabel.fan_height = centerY
+                }
+                //更新时间
+                if self.fan_lastUpdatedTimeLabel.constraints.count == 0 {
+                    self.fan_lastUpdatedTimeLabel.fan_x=0.0
+                    self.fan_lastUpdatedTimeLabel.fan_y=centerY
+                    self.fan_lastUpdatedTimeLabel.fan_width=self.fan_width
+                    self.fan_lastUpdatedTimeLabel.fan_height=self.fan_height-(self.fan_lastUpdatedTimeLabel.fan_y)
+                }
             }
         }
-        
-        
         //MARK:  箭头和菊花
         var arrowCenterX = self.fan_width * 0.5
+        var arrowCenterY = self.fan_height * 0.5
+        
         if self.fan_stateLabel.isHidden == false {
             let stateWidth:CGFloat = self.fan_stateLabel.fan_textWidth(height: self.fan_stateLabel.fan_height)
             var timeWidth:CGFloat = 0.0
@@ -169,9 +178,12 @@ public class FanRefreshHeaderDefault: FanRefreshHeader {
             }
             let textWidth:CGFloat = max(stateWidth, timeWidth)
             arrowCenterX -= textWidth/2.0 + self.fan_labelInsetLeft
+        }else{
+            if self.fan_lastUpdatedTimeLabel.isHidden == false {
+                arrowCenterY -= 5.0
+            }
         }
         
-        let arrowCenterY = self.fan_height * 0.5
         let arrowCenter = CGPoint(x: arrowCenterX, y: arrowCenterY)
         //箭头
         if self.fan_arrowView.constraints.count == 0 {

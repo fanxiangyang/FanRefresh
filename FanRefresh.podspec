@@ -41,7 +41,7 @@ Pod::Spec.new do |s|
 
   # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
 
-  s.frameworks = "UIKit", "Foundation"
+  s.frameworks = "UIKit", "Foundation", "ImageIO"
 
   # s.library   = "iconv"
   # s.libraries = "iconv", "xml2"

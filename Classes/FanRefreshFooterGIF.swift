@@ -1,14 +1,16 @@
 //
-//  FanRefreshFooterDefault.swift
+//  FanRefreshFooterGIF.swift
 //  FanRefresh
 //
-//  Created by 向阳凡 on 2017/4/7.
+//  Created by 向阳凡 on 2017/4/27.
 //  Copyright © 2017年 凡向阳. All rights reserved.
 //
 
 import UIKit
 
-public class FanRefreshFooterDefault: FanRefreshFooter {
+class FanRefreshFooterGIF: FanRefreshFooter {
+    //防止频繁创建加载，所以把这个活跃内存长期拥有
+    public var fan_gifImages:Dictionary<FanRefreshState, UIImage> = Dictionary<FanRefreshState, UIImage>()
 
     /// 存放状态标题字典
     public var fan_stateTitles:Dictionary<FanRefreshState, String> = Dictionary<FanRefreshState, String>()
@@ -16,7 +18,7 @@ public class FanRefreshFooterDefault: FanRefreshFooter {
     public var fan_labelInsetLeft:CGFloat = FanRefreshLabelInsetLeft
     
     public var fan_isRefreshTitleHidden:Bool = false
-
+    
     //MARK: - 内部成员变量+只读的
     
     /// 状态Label
@@ -26,28 +28,26 @@ public class FanRefreshFooterDefault: FanRefreshFooter {
         return titleLabel
     }()
     
-    
-    //MARK: - 箭头和菊花或自定义UI
-    
- 
-    /// 菊花样式
-    public var fan_activityIndicatorViewStyle:UIActivityIndicatorViewStyle = .gray
-    //    {
-    //        //这里应该不需要重新刷新
-    //        didSet{
-    //            self.setNeedsLayout()
-    //        }
-    //    }
+    //MARK: - GIF自定义UI
     
     ///懒加载属性，类似OC的get方法懒加载
-    public lazy var fan_loadingView:UIActivityIndicatorView? = {
-        let loadingView = UIActivityIndicatorView(activityIndicatorStyle: self.fan_activityIndicatorViewStyle)
-        self.addSubview(loadingView)
-        return loadingView
+    public lazy var fan_gifImageView:UIImageView = {
+        let gifView = UIImageView()
+        self.addSubview(gifView)
+        return gifView
     }()
     
-    //MARK: - 本类方法
-    
+        
+    //MARK: - 外部调用方法
+    //设置不同状态的GIF图片
+    public func fan_setGifName(name:String?,gifState:FanRefreshState){
+        if (name != nil) {
+            let image = UIImage.fan_gif(name: name!)
+            if (image != nil) {
+                self.fan_gifImages[gifState] = image
+            }
+        }
+    }
     /// 设置title状态
     public func fan_setTitle(title:String?,state:FanRefreshState) {
         if title == nil {
@@ -57,17 +57,23 @@ public class FanRefreshFooterDefault: FanRefreshFooter {
         self.fan_stateLabel.text=self.fan_stateTitles[self.state]
     }
     
-   public  func fan_stateLabelClick() {
+    public  func fan_stateLabelClick() {
         if self.state == .Default {
             self.fan_beginRefreshing()
         }
     }
     
+    //MARK: - 本类方法
+    fileprivate func fan_gifRefreshUI(){        
+        let gifImage = self.fan_gifImages[self.state]
+        if (gifImage != nil) {
+            self.fan_gifImageView.image = gifImage
+        }
+    }
     //MARK: - 重写父类方法
     
     public override func fan_prepare() {
         super.fan_prepare()
-        
         //初始化状态文字
         self.fan_setTitle(title: Bundle.fan_localizedString(key: FanRefreshAutoFooterDefaultText), state: .Default)
         self.fan_setTitle(title: Bundle.fan_localizedString(key: FanRefreshAutoFooterRefreshingText), state: .Refreshing)
@@ -77,6 +83,9 @@ public class FanRefreshFooterDefault: FanRefreshFooter {
         self.fan_stateLabel.isUserInteractionEnabled = true
         self.fan_stateLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.fan_stateLabelClick)))
         
+        self.fan_gifImageView.contentMode = .scaleAspectFit
+        self.fan_gifImageView.fan_size = CGSize(width: 40, height: 40)
+
     }
     
     override public func fan_placeSubviews() {
@@ -91,14 +100,14 @@ public class FanRefreshFooterDefault: FanRefreshFooter {
         
         //MARK:  菊花
         var loadingCenterX = self.fan_width * 0.5
-    
+        
         //圆圈
-        if self.fan_loadingView?.constraints.count == 0 {
+        if self.fan_gifImageView.constraints.count == 0 {
             if !fan_isRefreshTitleHidden {
-                loadingCenterX -= self.fan_stateLabel.fan_textWidth(height: self.fan_stateLabel.fan_height) * 0.5 + self.fan_labelInsetLeft
+                loadingCenterX -= self.fan_stateLabel.fan_textWidth(height: self.fan_stateLabel.fan_height) * 0.5 + self.fan_labelInsetLeft + self.fan_gifImageView.fan_width/2.0
             }
             let loadingCenterY = self.fan_height * 0.5
-            self.fan_loadingView?.center = CGPoint(x: loadingCenterX, y: loadingCenterY)
+            self.fan_gifImageView.center = CGPoint(x: loadingCenterX, y: loadingCenterY)
         }
     }
     override public func fan_changeState(oldState: FanRefreshState) {
@@ -107,18 +116,18 @@ public class FanRefreshFooterDefault: FanRefreshFooter {
             return
         }
         super.fan_changeState(oldState: oldState)
+        
         //设置状态文字
         if self.fan_isRefreshTitleHidden && self.state == .Refreshing {
             self.fan_stateLabel.text=nil
         }else{
             self.fan_stateLabel.text=self.fan_stateTitles[state]
         }
-
         //设置菊花
         if self.state == .NoMoreData || self.state == .Default {
-            self.fan_loadingView?.stopAnimating()
+            self.fan_gifImageView.image=nil
         }else{
-            self.fan_loadingView?.startAnimating()
+            self.fan_gifRefreshUI()
         }
     }
 

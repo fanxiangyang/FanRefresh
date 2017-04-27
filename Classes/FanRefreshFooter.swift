@@ -72,6 +72,16 @@ public class FanRefreshFooter: FanRefreshComponent {
             }
         }
     }
+    //MARK: - 外部调用的方法
+    /// 更新高度，同时更新insertBottom
+    public func fan_UpdateHeight(height:CGFloat){
+        if !self.isHidden {
+            self.superScrollView?.fan_insetBottom -= self.fan_height
+            self.fan_height = height
+            self.superScrollView?.fan_insetBottom += self.fan_height
+        }
+    }
+
     //MARK: - 重写的方法
     
     override public func fan_prepare() -> () {

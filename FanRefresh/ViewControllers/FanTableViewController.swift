@@ -60,7 +60,7 @@ class FanTableViewController: UITableViewController {
         case 2:
             message = "下拉时隐藏时间控件"
         case 3:
-            message = "功能开发中"
+            message = "可以修改，下拉，刷新，正常状态下的GIF"
         case 4:
             message = "默认上拉加载"
         case 5:
@@ -69,7 +69,7 @@ class FanTableViewController: UITableViewController {
         case 6:
             message = "确定重置上拉吗？\n 该功能可以配合刷新调整"
         case 7:
-            message = "功能开发中"
+            message = "只支持刷新状态下的GIF"
         default: break
             
         }
@@ -186,7 +186,8 @@ class FanTableViewController: UITableViewController {
         fanHeader.fan_labelInsetLeft=40.0
         //修改状态字体内容（默认支持 中文，繁体中文，和英文）
         fanHeader.fan_setTitle(title: "下拉可以刷新", state: .Default)
-        fanHeader.fan_setTitle(title: "松开立即刷新", state: .Pulling)
+//        fanHeader.fan_setTitle(title: "松开立即刷新", state: .Pulling)
+        fanHeader.fan_stateTitles[.Pulling] = "松开立即刷新"
         fanHeader.fan_setTitle(title: "正在刷新数据中...", state: .Refreshing)
         //修改状态和时间显示的字体颜色和大小样式
         fanHeader.fan_stateLabel.textColor=FanRefreshColor(r: 250, g: 34, b: 43, a: 1)
@@ -219,18 +220,38 @@ class FanTableViewController: UITableViewController {
         
         //不转的话，没有属性可以掉用
         let fanHeader=self.tableView.fan_header as! FanRefreshHeaderDefault
-        //隐藏时间(不能隐藏状态，要自己定义)
+        //隐藏时间
         fanHeader.fan_lastUpdatedTimeLabel.isHidden=true
-        //
+        //隐藏状态
+//        fanHeader.fan_stateLabel.isHidden=true
 
         
     }
     func example04() {
         weak var weakSelf=self
         //下拉
-        self.tableView.fan_header = FanRefreshHeaderDefault.headerRefreshing(refreshingBlock: {
+        self.tableView.fan_header = FanRefreshHeaderGIF.headerRefreshing(refreshingBlock: {
             weakSelf?.fan_loadData()
         })
+        
+        //不转的话，没有属性可以掉用
+        let fanHeader=self.tableView.fan_header as! FanRefreshHeaderGIF
+        //隐藏时间
+        //        fanHeader.fan_lastUpdatedTimeLabel.isHidden=true
+        fanHeader.fan_height = 120
+        fanHeader.fan_setGifName(name: "loding1", gifState: .Default)
+        fanHeader.fan_setGifName(name: "loding", gifState: .Refreshing)
+        //        fanHeader.fan_setGifName(name: "loding1", gifState: .Pulling)
+        //上面可以这样替换，也可以放置png,jpg的image对象
+        fanHeader.fan_gifImages[.Pulling] = UIImage.fan_gif(name: "loding1")
+        
+        //修改time与GIF间距默认5
+        //        fanHeader.fan_labelInsetTop=0
+        fanHeader.fan_gifImageView.fan_size=CGSize(width: 100, height: 60)
+        
+        fanHeader.fan_lastUpdatedTimeLabel.textColor=UIColor.red
+//        fanHeader.fan_lastUpdatedTimeLabel.isHidden=true
+
     }
     func example05() {
         weak var weakSelf=self
@@ -314,10 +335,32 @@ class FanTableViewController: UITableViewController {
             weakSelf?.fan_loadData()
         })
         //上拉
-        self.tableView.fan_footer=FanRefreshFooterDefault.footerRefreshing(refreshingBlock: {
+        self.tableView.fan_footer=FanRefreshFooterGIF.footerRefreshing(refreshingBlock: {
             weakSelf?.fan_loadMoreData()
         })
+        //不转的话，没有属性可以掉用
+        let fanFooter=self.tableView.fan_footer as! FanRefreshFooterGIF
         
+        //不建议在外部修改状态请使用方法
+//        fanFooter.state = .NoMoreData//（不推荐写法）
+//        fanFooter.fan_endRefreshingWithNoMoreData() //(推荐些法)
+        
+        //更新高度(不要直接self.fan_height = 120)
+        fanFooter.fan_UpdateHeight(height: 120)
+        fanFooter.fan_setGifName(name: "loding1", gifState: .Default)
+        fanFooter.fan_setGifName(name: "loding", gifState: .Refreshing)
+        //        fanFooter.fan_setGifName(name: "loding1", gifState: .NoMoreData)
+        //上面可以这样替换，也可以放置png,jpg的image对象
+        fanFooter.fan_gifImages[.NoMoreData] = UIImage.fan_gif(name: "loding1")
+        
+        //修改time与GIF间距默认5
+        fanFooter.fan_labelInsetLeft=0
+        fanFooter.fan_gifImageView.fan_size=CGSize(width: 100, height: 60)
+        
+        fanFooter.fan_stateLabel.textColor=UIColor.red
+        fanFooter.backgroundColor=UIColor.yellow
+//        fanFooter.fan_isRefreshTitleHidden = true
+
         
     }
     
@@ -448,12 +491,12 @@ class FanTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 
         // Configure the cell...
-        print(self.dataArray?.count)
+        print(self.dataArray?.count ?? "0")
         print(indexPath)
 
         cell.textLabel?.text=(self.dataArray?[indexPath.row] as? String)
 //        cell.textLabel?.text=(self.dataArray?[indexPath.row] as? String)! + "ueiyruieyrwiuewyriuewyriewyriewyriuyr"
-        print(cell.textLabel?.text)
+        print(cell.textLabel?.text ?? "")
 
         return cell
     }

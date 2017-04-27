@@ -21,9 +21,9 @@ public extension Bundle{
         }
         return StaticBundle.rbundle
     }
-//    static var fan_arrowImage:UIImage? = UIImage(contentsOfFile: (Bundle.fan_RefreshBundle?.path(forResource: "arrow@2x", ofType: "png"))!)?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+//    static var fan_arrowImage:UIImage? = UIImage(contentsOfFile: (Bundle.fan_RefreshBundle?.path(forResource: "fan_arrow@2x", ofType: "png"))!)?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
     public static var fan_arrowImage:UIImage?{
-        return (UIImage(contentsOfFile: (Bundle.fan_RefreshBundle?.path(forResource: "arrow@2x", ofType: "png"))!)?.withRenderingMode(UIImageRenderingMode.alwaysTemplate))
+        return (UIImage(contentsOfFile: (Bundle.fan_RefreshBundle?.path(forResource: "fan_arrow@2x", ofType: "png"))!)?.withRenderingMode(UIImageRenderingMode.alwaysTemplate))
     }
     
     public static var fan_languageBundle:Bundle?{

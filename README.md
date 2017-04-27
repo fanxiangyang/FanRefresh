@@ -10,7 +10,7 @@ FanRefresh ScrollView Refresh。
 
 超级好用的上拉下拉，git图片定制，系统UIRefreshControl,其他用户可以自己定制DIY
 
-* Refresh 		— 基本类扩展和常量定义。
+* Refresh 	— 基本类扩展和常量定义。
 * Header		— 下拉刷新控件。
 * Footer		— 上拉加载控件。
 
@@ -18,7 +18,7 @@ Installation（安装）
 ==============
 ### CocoaPods
 
-1. Add `pod 'FanRefresh','~> 0.0.4'` to your Podfile.
+1. Add `pod 'FanRefresh','~> 0.0.5'` to your Podfile.
 2. Run `pod install` or `pod update`.
 
 ```
@@ -35,6 +35,7 @@ rm ~/Library/Caches/CocoaPods/search_index.json
 3. 链接以下 frameworks:
    * UIKit
    * Foundation
+   * ImageIO
 
 Requirements(系统要求)
 ==============
@@ -66,7 +67,7 @@ self.tableView.fan_footer=FanRefreshFooterDefault.footerRefreshing(refreshingBlo
 })
 
 ```
-### 3.下拉属性的修改
+### 4.下拉属性的修改
 ```
 weak var weakSelf=self
 //下拉
@@ -105,7 +106,7 @@ fanHeader.fan_autoRefresh(thanIntervalTime: 5.0)
 //--------------------------------特有end-----------------------------------
 
 ```
-### 4.系统自带UIRefreshControl刷新
+### 5.系统自带UIRefreshControl刷新
 
 ```
 //系统自带简洁下拉
@@ -146,6 +147,68 @@ func fan_loadDataControl() {
 }
 
 ```
+
+### 6.自定义Header GIF图片显示
+```
+weak var weakSelf=self
+//下拉
+self.tableView.fan_header = FanRefreshHeaderGIF.headerRefreshing(refreshingBlock: {
+    weakSelf?.fan_loadData()
+})
+
+//不转的话，没有属性可以掉用
+let fanHeader=self.tableView.fan_header as! FanRefreshHeaderGIF
+//隐藏时间
+//        fanHeader.fan_lastUpdatedTimeLabel.isHidden=true
+fanHeader.fan_height = 100
+fanHeader.fan_setGifName(name: "loding1", gifState: .Default)
+fanHeader.fan_setGifName(name: "loding", gifState: .Refreshing)
+//        fanHeader.fan_setGifName(name: "loding1", gifState: .Pulling)
+//上面可以这样替换，也可以放置png,jpg的image对象
+fanHeader.fan_gifImages[.Pulling] = UIImage.fan_gif(name: "loding1")
+
+//修改time与GIF间距默认5
+//        fanHeader.fan_labelInsetTop=0
+fanHeader.fan_gifImageView.fan_size=CGSize(width: 100, height: 60)
+
+fanHeader.fan_lastUpdatedTimeLabel.textColor=UIColor.red
+//fanHeader.fan_lastUpdatedTimeLabel.isHidden=true
+
+```
+### 7.自定义Header GIF图片显示
+```
+weak var weakSelf=self
+        //下拉
+        self.tableView.fan_header = FanRefreshHeaderDefault.headerRefreshing(refreshingBlock: {
+            weakSelf?.fan_loadData()
+        })
+        //上拉
+        self.tableView.fan_footer=FanRefreshFooterGIF.footerRefreshing(refreshingBlock: {
+            weakSelf?.fan_loadMoreData()
+        })
+        //不转的话，没有属性可以掉用
+        let fanFooter=self.tableView.fan_footer as! FanRefreshFooterGIF
+        
+        //不建议在外部修改状态请使用方法
+//        fanFooter.state = .NoMoreData//（不推荐写法）
+//        fanFooter.fan_endRefreshingWithNoMoreData() //(推荐些法)
+        
+        //更新高度(不要直接self.fan_height = 120)
+        fanFooter.fan_UpdateHeight(height: 120)
+        fanFooter.fan_setGifName(name: "loding1", gifState: .Default)
+        fanFooter.fan_setGifName(name: "loding", gifState: .Refreshing)
+        //        fanFooter.fan_setGifName(name: "loding1", gifState: .NoMoreData)
+        //上面可以这样替换，也可以放置png,jpg的image对象
+        fanFooter.fan_gifImages[.NoMoreData] = UIImage.fan_gif(name: "loding1")
+        
+        //修改time与GIF间距默认5
+        fanFooter.fan_labelInsetLeft=0
+        fanFooter.fan_gifImageView.fan_size=CGSize(width: 100, height: 60)
+        
+        fanFooter.fan_stateLabel.textColor=UIColor.red
+        fanFooter.backgroundColor=UIColor.yellow
+//        fanFooter.fan_isRefreshTitleHidden = true
+```
 更新历史(Version Update)
 ==============
 ### Release 0.0.3
@@ -155,10 +218,10 @@ func fan_loadDataControl() {
 * 简化枚举属性
 * 添加系统控件UIRefreshControl实现下拉刷新(可兼容iOS10)
 
-### Release 0.0.5  PTR
+### Release 0.0.5
 * 修复中文字符串长度越界问题
 * 修复调用时间记录初次为空时崩溃的处理
-
+* 添加Header的自定义GIF展示
 
 Like(喜欢)
 ==============
