@@ -175,7 +175,7 @@ fanHeader.fan_lastUpdatedTimeLabel.textColor=UIColor.red
 //fanHeader.fan_lastUpdatedTimeLabel.isHidden=true
 
 ```
-### 7.自定义Header GIF图片显示
+### 7.自定义Footer GIF图片显示
 ```
 weak var weakSelf=self
         //下拉
@@ -221,7 +221,7 @@ weak var weakSelf=self
 ### Release 0.0.5
 * 修复中文字符串长度越界问题
 * 修复调用时间记录初次为空时崩溃的处理
-* 添加Header的自定义GIF展示
+* 添加Header和Footer的自定义GIF展示
 
 Like(喜欢)
 ==============
