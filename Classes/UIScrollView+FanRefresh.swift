@@ -18,24 +18,40 @@ private  var FanRefreshReloadDataBlockKey=3
 public extension UIScrollView {
     
     //MARK: - FanExtension Frame
+    public var fan_inset:UIEdgeInsets{
+        get{
+            if #available(iOS 11.0, *) {
+                return self.adjustedContentInset
+            }else{
+                return self.contentInset
+            }
+        }
+    }
+    
     public var fan_insetTop:CGFloat{
         get{
-            return self.contentInset.top
+            return self.fan_inset.top
         }
         set{
             var inset=self.contentInset
             inset.top=newValue
+            if #available(iOS 11.0, *) {
+                inset.top -= (self.adjustedContentInset.top-self.contentInset.top)
+            }
             self.contentInset=inset
         }
     }
     public var fan_insetBottom:CGFloat
     {
         get{
-            return self.contentInset.bottom
+            return self.fan_inset.bottom
         }
         set{
             var inset=self.contentInset
             inset.bottom=newValue
+            if #available(iOS 11.0, *) {
+                inset.bottom -= (self.adjustedContentInset.bottom-self.contentInset.bottom)
+            }
             self.contentInset=inset
         }
     }
@@ -47,6 +63,9 @@ public extension UIScrollView {
         set{
             var inset=self.contentInset
             inset.left=newValue
+            if #available(iOS 11.0, *) {
+                inset.left -= (self.adjustedContentInset.left-self.contentInset.left)
+            }
             self.contentInset=inset
         }
     }
@@ -57,6 +76,9 @@ public extension UIScrollView {
         set{
             var inset=self.contentInset
             inset.right=newValue
+            if #available(iOS 11.0, *) {
+                inset.right -= (self.adjustedContentInset.right-self.contentInset.right)
+            }
             self.contentInset=inset
         }
     }
@@ -137,7 +159,7 @@ public extension UIScrollView {
             }
         }
     }
-
+    
     /// 上拉新控件
     public var fan_footer:FanRefreshFooter?{
         get{
@@ -203,7 +225,7 @@ public extension UITableView{
 //    override open class func initialize() {
 //        self.exchangeImp()
 //    }
-//    
+//
 //    class func exchangeImp() {
 //        let method1 = class_getInstanceMethod(self, #selector(self.reloadData))
 //        let method2 = class_getInstanceMethod(self, #selector(self.fan_hiddenFooterWhenNull))

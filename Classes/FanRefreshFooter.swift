@@ -122,6 +122,10 @@ public class FanRefreshFooter: FanRefreshComponent {
         if self.state != .Default || !self.fan_automaticallyRefresh || self.fan_y == 0.0 {
             return
         }
+        if #available(iOS 11.0, *) {
+            //iOS11状态下，某些情况下出现判断偏移量忽大忽小，造成循环刷新，所以暂时禁止该功能，不会影响体验
+            return
+        }
         //内容超过容器
         if (self.superScrollView?.fan_insetTop)! + (self.superScrollView?.fan_contentHeight)! > (self.superScrollView?.fan_height)! {
 //            print("offSetY:\((self.superScrollView?.fan_offsetY)!)  contentHeight:\((self.superScrollView?.fan_contentHeight)!)  sHeight:\((self.superScrollView?.fan_height)!)  insetBottom:\((self.superScrollView?.fan_insetBottom)!)")
@@ -162,12 +166,12 @@ public class FanRefreshFooter: FanRefreshComponent {
             if (self.superScrollView?.fan_insetTop)! + (self.superScrollView?.fan_contentHeight)! <= (self.superScrollView?.fan_height)! {
                 //内容不够一个屏幕
                 if (self.superScrollView?.fan_offsetY)! >= -((self.superScrollView?.fan_insetTop)!) {
-                    self.fan_beginRefreshing()
+                    self.fan_beginRefreshing()//上拉超过距离0就刷新
                 }
             }else{
                 //超过一个屏幕
                 if (self.superScrollView?.fan_offsetY)! >= ( (self.superScrollView?.fan_contentHeight)! + (self.superScrollView?.fan_insetBottom)! - (self.superScrollView?.fan_height)! ) {
-                    self.fan_beginRefreshing()
+                    self.fan_beginRefreshing()//上拉超过footView区域就刷新
 //                    print("3333333333333")
 
                 }

@@ -15,7 +15,7 @@ public class FanRefreshHeaderDefault: FanRefreshHeader {
     /// 存放状态标题字典
     public var fan_stateTitles:Dictionary<FanRefreshState, String> = Dictionary<FanRefreshState, String>()
     //文字距离圆圈和箭头的距离
-    var fan_labelInsetLeft:CGFloat = FanRefreshLabelInsetLeft
+    public var fan_labelInsetLeft:CGFloat = FanRefreshLabelInsetLeft
     
     //MARK: - 内部成员变量+只读的
 

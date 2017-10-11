@@ -14,7 +14,7 @@ public class FanRefreshHeader: FanRefreshComponent {
     //MARK: - 属性
 
     /// 控件的顶部默认隐藏时的位置
-    fileprivate var insetTopDefault:CGFloat = 0.0
+    public var insetTopDefault:CGFloat = 0.0
 
     public var fan_lastUpdatedTimeKey:String=FanRefreshHeaderLastUpdatedTimeKey{
         didSet{
@@ -133,7 +133,7 @@ public class FanRefreshHeader: FanRefreshComponent {
             return;
         }
         //防止
-        self.scrollViewOriginalInset=self.superScrollView?.contentInset
+        self.scrollViewOriginalInset=self.superScrollView?.fan_inset
         let offsetY = (self.superScrollView?.fan_offsetY)!
         let happenOffsetY = -(self.scrollViewOriginalInset?.top)!
         //如果是向上滑动看不到头控件，直接返回

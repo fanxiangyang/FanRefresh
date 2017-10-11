@@ -179,7 +179,7 @@ public class FanRefreshComponent: UIView {
             self.fan_x=0.0
             self.superScrollView=newSuperview as? UIScrollView
             self.superScrollView?.alwaysBounceVertical=true
-            self.scrollViewOriginalInset=self.superScrollView?.contentInset
+            self.scrollViewOriginalInset=self.superScrollView?.fan_inset
             //添加监听
             self.fan_addObservers()
         }
