@@ -50,7 +50,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         })
         
     }
-    func fan_loadData() {
+    @objc func fan_loadData() {
         if #available(iOS 10.0, *) {
             self.tableView?.refreshControl?.beginRefreshing()
         }else{

@@ -18,7 +18,7 @@ Installation（安装）
 ==============
 ### CocoaPods
 
-1. Add `pod 'FanRefresh','~> 0.0.5'` to your Podfile.
+1. Add `pod 'FanRefresh','~> 0.1.0'` to your Podfile.
 2. Run `pod install` or `pod update`.
 
 ```
@@ -222,6 +222,10 @@ weak var weakSelf=self
 * 修复中文字符串长度越界问题
 * 修复调用时间记录初次为空时崩溃的处理
 * 添加Header和Footer的自定义GIF展示
+
+### Release 0.1.0
+* 增加对iOS 11的支持及适配
+* 已经更新到最新的swift4
 
 Like(喜欢)
 ==============

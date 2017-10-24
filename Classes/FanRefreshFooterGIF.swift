@@ -57,7 +57,7 @@ class FanRefreshFooterGIF: FanRefreshFooter {
         self.fan_stateLabel.text=self.fan_stateTitles[self.state]
     }
     
-    public  func fan_stateLabelClick() {
+    @objc public  func fan_stateLabelClick() {
         if self.state == .Default {
             self.fan_beginRefreshing()
         }

@@ -23,7 +23,6 @@
 		66A342971E8B61B3002D8F83 /* FanRefreshTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A342961E8B61B3002D8F83 /* FanRefreshTests.swift */; };
 		66A342A21E8B61B3002D8F83 /* FanRefreshUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66A342A11E8B61B3002D8F83 /* FanRefreshUITests.swift */; };
 		66AEE5211E9E132500CCD0C9 /* FanRefreshControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66AEE5201E9E132500CCD0C9 /* FanRefreshControl.swift */; };
-		66B241891EF9547200B31511 /* FanRefreshHeaderBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B241881EF9547200B31511 /* FanRefreshHeaderBubble.swift */; };
 		66B678FF1E9C92B800B07D47 /* Bundle+FanRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B678F91E9C92B800B07D47 /* Bundle+FanRefresh.swift */; };
 		66B679001E9C92B800B07D47 /* FanRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 66B678FA1E9C92B800B07D47 /* FanRefresh.bundle */; };
 		66B679011E9C92B800B07D47 /* FanRefreshComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66B678FB1E9C92B800B07D47 /* FanRefreshComponent.swift */; };
@@ -76,7 +75,6 @@
 		66A342A11E8B61B3002D8F83 /* FanRefreshUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FanRefreshUITests.swift; sourceTree = "<group>"; };
 		66A342A31E8B61B3002D8F83 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		66AEE5201E9E132500CCD0C9 /* FanRefreshControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FanRefreshControl.swift; sourceTree = "<group>"; };
-		66B241881EF9547200B31511 /* FanRefreshHeaderBubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FanRefreshHeaderBubble.swift; sourceTree = "<group>"; };
 		66B678F91E9C92B800B07D47 /* Bundle+FanRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Bundle+FanRefresh.swift"; sourceTree = "<group>"; };
 		66B678FA1E9C92B800B07D47 /* FanRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FanRefresh.bundle; sourceTree = "<group>"; };
 		66B678FB1E9C92B800B07D47 /* FanRefreshComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = FanRefreshComponent.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -214,7 +212,6 @@
 		66B679051E9C92C100B07D47 /* Header */ = {
 			isa = PBXGroup;
 			children = (
-				66B241881EF9547200B31511 /* FanRefreshHeaderBubble.swift */,
 				66AEE5201E9E132500CCD0C9 /* FanRefreshControl.swift */,
 				66B6790B1E9C92EE00B07D47 /* FanRefreshHeader.swift */,
 				66B6790C1E9C92EE00B07D47 /* FanRefreshHeaderDefault.swift */,
@@ -296,23 +293,26 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "凡向阳";
 				TargetAttributes = {
 					66A3427D1E8B61B3002D8F83 = {
 						CreatedOnToolsVersion = 8.3;
 						DevelopmentTeam = NW3X9NZ9UP;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					66A342911E8B61B3002D8F83 = {
 						CreatedOnToolsVersion = 8.3;
 						DevelopmentTeam = NW3X9NZ9UP;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 66A3427D1E8B61B3002D8F83;
 					};
 					66A3429C1E8B61B3002D8F83 = {
 						CreatedOnToolsVersion = 8.3;
 						DevelopmentTeam = NW3X9NZ9UP;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 66A3427D1E8B61B3002D8F83;
 					};
@@ -389,7 +389,6 @@
 				6651C9C21EAA1B9D008C3E22 /* UIImage+FanRefreshGIF.swift in Sources */,
 				66AEE5211E9E132500CCD0C9 /* FanRefreshControl.swift in Sources */,
 				6651C9C41EAA1BAB008C3E22 /* FanRefreshHeaderGIF.swift in Sources */,
-				66B241891EF9547200B31511 /* FanRefreshHeaderBubble.swift in Sources */,
 				66B679031E9C92B800B07D47 /* UIScrollView+FanRefresh.swift in Sources */,
 				66B6790D1E9C92EE00B07D47 /* FanRefreshHeader.swift in Sources */,
 			);
@@ -456,7 +455,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -464,7 +465,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -507,7 +512,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -515,7 +522,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -553,7 +564,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.fan.FanRefresh;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -569,7 +581,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.fan.FanRefresh;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -583,7 +596,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fan.FanRefreshTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FanRefresh.app/FanRefresh";
 			};
 			name = Debug;
@@ -598,7 +612,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fan.FanRefreshTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FanRefresh.app/FanRefresh";
 			};
 			name = Release;
@@ -612,7 +627,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fan.FanRefreshUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = FanRefresh;
 			};
 			name = Debug;
@@ -626,7 +642,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fan.FanRefreshUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = FanRefresh;
 			};
 			name = Release;

@@ -37,7 +37,7 @@ class FanTableViewController: UITableViewController {
         let item = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(self.fan_more))
         self.navigationItem.rightBarButtonItem=item
     }
-    func fan_more()  {
+    @objc func fan_more()  {
         var exampleIndex = 0
         switch (self.fan_indexPath?.section)! {
         case 0:
@@ -440,7 +440,7 @@ class FanTableViewController: UITableViewController {
         }
         
     }
-    func fan_loadDataControl() {
+    @objc func fan_loadDataControl() {
    
 //        self.dataArray = ["6","7","8","9","10"]
         if #available(iOS 10.0, *) {
