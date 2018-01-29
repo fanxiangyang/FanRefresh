@@ -294,7 +294,7 @@ public extension UILabel{
         let size:CGSize = CGSize(width: CGFloat(MAXFLOAT), height: height)
         //FIXME:  字符串不存在时的崩溃
         if (self.text != nil)  {
-            if (self.text?.characters.count)! > 0 {
+            if (self.text?.count)! > 0 {
                 stringWidth = (self.text! as NSString).boundingRect(with: size, options: [.usesLineFragmentOrigin], attributes: [NSAttributedStringKey.font:self.font], context: nil).size.width
             }
         }
@@ -304,7 +304,7 @@ public extension UILabel{
         var stringHeight:CGFloat=0.0
         let size:CGSize = CGSize(width: width , height: CGFloat(MAXFLOAT))
         if (self.text != nil)  {
-            if (self.text?.characters.count)! > 0 {
+            if (self.text?.count)! > 0 {
                 stringHeight = (self.text! as NSString).boundingRect(with: size, options: [.usesLineFragmentOrigin], attributes: [NSAttributedStringKey.font:self.font], context: nil).size.height
             }
         }
