@@ -31,7 +31,7 @@ open class FanRefreshControl: UIRefreshControl {
     
     public class func fan_addRefresh(target: Any?, action: Selector)->(Self){
         let refreshControl=self.init()
-        refreshControl.addTarget(target, action: action, for: UIControlEvents.valueChanged)
+        refreshControl.addTarget(target, action: action, for: UIControl.Event.valueChanged)
         return refreshControl
     }
     
@@ -107,12 +107,12 @@ open class FanRefreshControl: UIRefreshControl {
     fileprivate func updateTextColor(color:UIColor?){
         if (color != nil) {
             let currentAttribut = NSMutableAttributedString(attributedString:self.attributedTitle!)
-            currentAttribut.addAttributes([NSAttributedStringKey.foregroundColor:color!], range: NSRange(location: 0, length: currentAttribut.string.count))
+            currentAttribut.addAttributes([NSAttributedString.Key.foregroundColor:color!], range: NSRange(location: 0, length: currentAttribut.string.count))
             self.attributedTitle = currentAttribut
             
             for (key,value) in self.fan_stateTitles {
                 let attribut = NSMutableAttributedString(attributedString: value)
-                attribut.addAttributes([NSAttributedStringKey.foregroundColor:color!], range: NSRange(location: 0, length: attribut.string.count))
+                attribut.addAttributes([NSAttributedString.Key.foregroundColor:color!], range: NSRange(location: 0, length: attribut.string.count))
                 self.fan_stateTitles[key] = attribut
 
             }

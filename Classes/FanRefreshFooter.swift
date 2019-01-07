@@ -161,7 +161,7 @@ public class FanRefreshFooter: FanRefreshComponent {
             return
         }
         
-        if self.superScrollView?.panGestureRecognizer.state == UIGestureRecognizerState.ended {
+        if self.superScrollView?.panGestureRecognizer.state == UIGestureRecognizer.State.ended {
             //手松开时
             if (self.superScrollView?.fan_insetTop)! + (self.superScrollView?.fan_contentHeight)! <= (self.superScrollView?.fan_height)! {
                 //内容不够一个屏幕

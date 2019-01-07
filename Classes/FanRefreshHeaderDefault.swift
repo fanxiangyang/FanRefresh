@@ -48,7 +48,7 @@ public class FanRefreshHeaderDefault: FanRefreshHeader {
     }()
     
     /// 菊花样式
-    public var fan_activityIndicatorViewStyle:UIActivityIndicatorViewStyle = .gray
+    public var fan_activityIndicatorViewStyle:UIActivityIndicatorView.Style = .gray
 //    {
 //        //这里应该不需要重新刷新
 //        didSet{
@@ -56,7 +56,7 @@ public class FanRefreshHeaderDefault: FanRefreshHeader {
 //        }
 //    }
     public lazy var fan_loadingView:UIActivityIndicatorView? = {
-        let loadingView = UIActivityIndicatorView(activityIndicatorStyle: self.fan_activityIndicatorViewStyle)
+        let loadingView = UIActivityIndicatorView(style: self.fan_activityIndicatorViewStyle)
         self.addSubview(loadingView)
         return loadingView
     }()

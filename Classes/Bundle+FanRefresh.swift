@@ -23,7 +23,7 @@ public extension Bundle{
     }
 //    static var fan_arrowImage:UIImage? = UIImage(contentsOfFile: (Bundle.fan_RefreshBundle?.path(forResource: "fan_arrow@2x", ofType: "png"))!)?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
     public static var fan_arrowImage:UIImage?{
-        return (UIImage(contentsOfFile: (Bundle.fan_RefreshBundle?.path(forResource: "fan_arrow@2x", ofType: "png"))!)?.withRenderingMode(UIImageRenderingMode.alwaysTemplate))
+        return (UIImage(contentsOfFile: (Bundle.fan_RefreshBundle?.path(forResource: "fan_arrow@2x", ofType: "png"))!)?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate))
     }
     
     public static var fan_languageBundle:Bundle?{

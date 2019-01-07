@@ -90,7 +90,7 @@ class FanCollectionViewController: UICollectionViewController,UICollectionViewDe
     
     //设置所有的cell组成的视图与section 上、左、下、右的间隔
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsetsMake(10, 20, 10, 20)
+        return UIEdgeInsets.init(top: 10, left: 20, bottom: 10, right: 20)
     }
     //反之亦然(当前设置是垂直布局）
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
