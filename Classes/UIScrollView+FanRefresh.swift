@@ -18,7 +18,7 @@ private  var FanRefreshReloadDataBlockKey=3
 public extension UIScrollView {
     
     //MARK: - FanExtension Frame
-    public var fan_inset:UIEdgeInsets{
+    var fan_inset:UIEdgeInsets{
         get{
             if #available(iOS 11.0, *) {
                 return self.adjustedContentInset
@@ -28,7 +28,7 @@ public extension UIScrollView {
         }
     }
     
-    public var fan_insetTop:CGFloat{
+    var fan_insetTop:CGFloat{
         get{
             return self.fan_inset.top
         }
@@ -41,7 +41,7 @@ public extension UIScrollView {
             self.contentInset=inset
         }
     }
-    public var fan_insetBottom:CGFloat
+    var fan_insetBottom:CGFloat
     {
         get{
             return self.fan_inset.bottom
@@ -55,7 +55,7 @@ public extension UIScrollView {
             self.contentInset=inset
         }
     }
-    public var fan_insetLeft:CGFloat
+    var fan_insetLeft:CGFloat
     {
         get{
             return self.contentInset.left
@@ -69,7 +69,7 @@ public extension UIScrollView {
             self.contentInset=inset
         }
     }
-    public var fan_insetRight:CGFloat{
+    var fan_insetRight:CGFloat{
         get{
             return self.contentInset.right
         }
@@ -85,7 +85,7 @@ public extension UIScrollView {
     
     
     
-    public var fan_offsetX:CGFloat{
+    var fan_offsetX:CGFloat{
         get{
             return self.contentOffset.x
         }
@@ -95,7 +95,7 @@ public extension UIScrollView {
             self.contentOffset=offset
         }
     }
-    public var fan_offsetY:CGFloat{
+    var fan_offsetY:CGFloat{
         get{
             return self.contentOffset.y
         }
@@ -106,7 +106,7 @@ public extension UIScrollView {
         }
     }
     
-    public var fan_contentWidth:CGFloat{
+    var fan_contentWidth:CGFloat{
         get{
             return self.contentSize.width
         }
@@ -116,7 +116,7 @@ public extension UIScrollView {
             self.contentSize=size
         }
     }
-    public var fan_contentHeight:CGFloat{
+    var fan_contentHeight:CGFloat{
         get{
             return self.contentSize.height
         }
@@ -130,7 +130,7 @@ public extension UIScrollView {
     //MARK: - FanRefresh
     
     /// 下拉刷新控件
-    public var fan_header:FanRefreshHeader?{
+    var fan_header:FanRefreshHeader?{
         get{
             return objc_getAssociatedObject(self, &FanRefreshHeaderKey) as? FanRefreshHeader
         }
@@ -145,7 +145,7 @@ public extension UIScrollView {
         }
     }
     /// 系统自带刷新控件
-    public var fan_refreshControl:FanRefreshControl?{
+    var fan_refreshControl:FanRefreshControl?{
         get{
             return objc_getAssociatedObject(self, &FanRefreshControlKey) as? FanRefreshControl
         }
@@ -161,7 +161,7 @@ public extension UIScrollView {
     }
     
     /// 上拉新控件
-    public var fan_footer:FanRefreshFooter?{
+    var fan_footer:FanRefreshFooter?{
         get{
             return objc_getAssociatedObject(self, &FanRefreshFooterKey) as? FanRefreshFooter
         }
@@ -181,7 +181,7 @@ public extension UIScrollView {
     /// 列表数据总数
     ///
     /// - Returns: 总个数
-    public func fan_totalDataCount() -> Int {
+    func fan_totalDataCount() -> Int {
         var totalCount=0
         if self is UITableView {
             let tableView=self as! UITableView
@@ -198,7 +198,7 @@ public extension UIScrollView {
     }
     
     /// 回调列表数据总个数(footer 中使用)
-    public var fan_reloadDataBlock:((_ totalDataCount:Int)->())? {
+    var fan_reloadDataBlock:((_ totalDataCount:Int)->())? {
         get{
             return objc_getAssociatedObject(self, &FanRefreshReloadDataBlockKey) as? ((Int) -> ())
         }
@@ -211,7 +211,7 @@ public extension UIScrollView {
     }
     
     /// 当数据为空时，隐藏footer
-    public func fan_hiddenFooterWhenNull() {
+    func fan_hiddenFooterWhenNull() {
         if (self.fan_reloadDataBlock != nil) {
             self.fan_reloadDataBlock!(self.fan_totalDataCount())
         }

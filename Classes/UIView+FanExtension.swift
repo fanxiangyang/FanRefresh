@@ -11,7 +11,7 @@ import UIKit
 
 public extension UIView {
     
-    public var fan_x:CGFloat{
+    var fan_x:CGFloat{
         get{
             return self.frame.origin.x
         }
@@ -21,7 +21,7 @@ public extension UIView {
             self.frame=frame
         }
     }
-    public var fan_y:CGFloat{
+    var fan_y:CGFloat{
         get{
             return self.frame.origin.y
         }
@@ -32,7 +32,7 @@ public extension UIView {
         }
     }
     
-    public var fan_width:CGFloat{
+    var fan_width:CGFloat{
         get{
             return self.frame.size.width
         }
@@ -42,7 +42,7 @@ public extension UIView {
             self.frame=frame
         }
     }
-    public var fan_height:CGFloat{
+    var fan_height:CGFloat{
         get{
             return self.frame.size.height
         }
@@ -53,7 +53,7 @@ public extension UIView {
         }
     }
   
-    public var fan_size:CGSize{
+    var fan_size:CGSize{
         get{
             return self.frame.size
         }
@@ -63,7 +63,7 @@ public extension UIView {
             self.frame=frame
         }
     }
-    public var fan_origin:CGPoint{
+    var fan_origin:CGPoint{
         get{
             return self.frame.origin
         }

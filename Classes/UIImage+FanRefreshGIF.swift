@@ -21,7 +21,7 @@ import ImageIO
 
 public extension UIImageView {
     //MARK: 外部调用方法
-    public func fan_loadGif(name: String) {
+    func fan_loadGif(name: String) {
         DispatchQueue.global().async {
             let image = UIImage.fan_gif(name: name)
             DispatchQueue.main.async {
@@ -34,7 +34,7 @@ public extension UIImageView {
 public extension UIImage {
     //MARK: 外部调用方法
 
-    public class func fan_gif(data: Data) -> UIImage? {
+    class func fan_gif(data: Data) -> UIImage? {
         // Create source from data
         guard let source = CGImageSourceCreateWithData(data as CFData, nil) else {
             print("SwiftGif: Source for the image does not exist")
@@ -44,7 +44,7 @@ public extension UIImage {
         return UIImage.fan_animatedImageWithSource(source)
     }
 
-    public class func fan_gif(url: String) -> UIImage? {
+    class func fan_gif(url: String) -> UIImage? {
         // Validate URL
         guard let bundleURL = URL(string: url) else {
             print("SwiftGif: This image named \"\(url)\" does not exist")
@@ -60,7 +60,7 @@ public extension UIImage {
         return fan_gif(data: imageData)
     }
 
-    public class func fan_gif(name: String) -> UIImage? {
+    class func fan_gif(name: String) -> UIImage? {
         // Check for existance of gif
         guard let bundleURL = Bundle.main
           .url(forResource: name, withExtension: "gif") else {

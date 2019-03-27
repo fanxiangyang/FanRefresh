@@ -18,7 +18,7 @@ Installation（安装）
 ==============
 ### CocoaPods
 
-1. Add `pod 'FanRefresh','~> 0.1.1'` to your Podfile.
+1. Add `pod 'FanRefresh','~> 1.0.0'` to your Podfile.
 2. Run `pod install` or `pod update`.
 
 ```
@@ -229,6 +229,10 @@ weak var weakSelf=self
 
 ### Release 0.1.1
 * 已经更新到最新的swift4.2 部分语法变化
+
+### Release 1.0.0
+* 已经更新到最新的swift5.0 部分语法变化
+* swift5.0以后ABI稳定。
 
 Like(喜欢)
 ==============

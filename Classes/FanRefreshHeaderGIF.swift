@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FanRefreshHeaderGIF: FanRefreshHeader {
+public class FanRefreshHeaderGIF: FanRefreshHeader {
     //MARK: - 外部可以修改成员变量
     //防止频繁创建加载，所以把这个活跃内存长期拥有
     public var fan_gifImages:Dictionary<FanRefreshState, UIImage> = Dictionary<FanRefreshState, UIImage>()

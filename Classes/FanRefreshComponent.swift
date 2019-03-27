@@ -279,7 +279,7 @@ public class FanRefreshComponent: UIView {
 //MARK: - Label扩展
 
 public extension UILabel{
-    public class func fan_label()-> UILabel {
+    class func fan_label()-> UILabel {
         let label = UILabel()
         label.font=FanRefreshLableFont()
         label.textColor=FanRefreshTextColor()
@@ -289,23 +289,23 @@ public extension UILabel{
         return label
     }
     
-    public func fan_textWidth(height:CGFloat) -> CGFloat {
+    func fan_textWidth(height:CGFloat) -> CGFloat {
         var stringWidth:CGFloat=0.0
         let size:CGSize = CGSize(width: CGFloat(MAXFLOAT), height: height)
         //FIXME:  字符串不存在时的崩溃
         if (self.text != nil)  {
             if (self.text?.count)! > 0 {
-                stringWidth = (self.text! as NSString).boundingRect(with: size, options: [.usesLineFragmentOrigin], attributes: [NSAttributedString.Key.font:self.font], context: nil).size.width
+                stringWidth = (self.text! as NSString).boundingRect(with: size, options: [.usesLineFragmentOrigin], attributes: [NSAttributedString.Key.font:self.font!], context: nil).size.width
             }
         }
         return stringWidth
     }
-    public func fan_textHeight(width:CGFloat) -> CGFloat {
+    func fan_textHeight(width:CGFloat) -> CGFloat {
         var stringHeight:CGFloat=0.0
         let size:CGSize = CGSize(width: width , height: CGFloat(MAXFLOAT))
         if (self.text != nil)  {
             if (self.text?.count)! > 0 {
-                stringHeight = (self.text! as NSString).boundingRect(with: size, options: [.usesLineFragmentOrigin], attributes: [NSAttributedString.Key.font:self.font], context: nil).size.height
+                stringHeight = (self.text! as NSString).boundingRect(with: size, options: [.usesLineFragmentOrigin], attributes: [NSAttributedString.Key.font:self.font!], context: nil).size.height
             }
         }
         return stringHeight

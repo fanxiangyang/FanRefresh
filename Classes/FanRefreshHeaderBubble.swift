@@ -6,6 +6,8 @@
 //  Copyright © 2017年 凡向阳. All rights reserved.
 //
 
+/// 该类处于测试阶段，不能使用，有bug
+
 import UIKit
 
 public class FanRefreshHeaderBubble: FanRefreshHeader {
