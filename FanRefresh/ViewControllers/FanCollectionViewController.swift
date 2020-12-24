@@ -27,7 +27,12 @@ class FanCollectionViewController: UICollectionViewController,UICollectionViewDe
         self.view.backgroundColor=UIColor.white
         self.collectionView?.backgroundColor=UIColor.white
         
-        self.automaticallyAdjustsScrollViewInsets=false
+        if #available(iOS 11.0, *) {
+            self.collectionView?.contentInsetAdjustmentBehavior = .automatic
+        } else {
+            // Fallback on earlier versions
+            self.automaticallyAdjustsScrollViewInsets=false;
+        }
         self.navigationController?.navigationBar.isTranslucent=false
         
         

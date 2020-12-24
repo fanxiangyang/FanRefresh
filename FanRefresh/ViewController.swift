@@ -21,7 +21,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
 //        self.navigationController?.navigationBar.isTranslucent=false
 
         
-        self.dataArray=[["下拉刷新-默认","下拉刷新-修改","下拉刷新-隐藏","下拉刷新-GIF"],["上拉加载-默认","上拉加载-修改","上拉加载-没有更多数据","上拉加载-GIF"],["UICollectionView"],["UIWebView"],["UIRefreshControl(系统自带控件)","UIRefreshControl 修改"]]
+        self.dataArray=[["下拉刷新-默认","下拉刷新-修改","下拉刷新-隐藏","下拉刷新-GIF"],["上拉加载-默认","上拉加载-修改","上拉加载-没有更多数据","上拉加载-GIF"],["UICollectionView"],["WKWebView"],["UIRefreshControl(系统自带控件)","UIRefreshControl 修改"]]
         self.detailArray=[["FanTableViewController - example01","FanTableViewController - example02","FanTableViewController - example03","FanTableViewController - example04"],["FanTableViewController - example05","FanTableViewController - example06","FanTableViewController - example07","FanTableViewController - example08"],["FanCollectionView"],["FanWebView"],["FanTableViewController - example09","FanTableViewController - example10"]]
         
         self.configUI()
