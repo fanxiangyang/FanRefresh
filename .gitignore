@@ -1,0 +1,26 @@
+!.gitignore
+*.DS_Store
+# 项目忽略文件
+
+FanRefresh.xcodeproj/project.xcworkspace/xcuserdata/
+FanRefresh.xcodeproj/xcuserdata/
+
+#pod内容
+/Pods
+
+#swift package 忽略文件
+/.build
+/Packages
+# /*.xcodeproj
+xcuserdata/
+DerivedData/
+.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
+
+# 编辑器配置文件
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
